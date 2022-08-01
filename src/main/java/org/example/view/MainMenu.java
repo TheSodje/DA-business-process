@@ -1,17 +1,24 @@
 package org.example.view;
 
+import org.example.entity.Employee;
 import org.example.repositories.MenuItemsRepository;
+import org.example.service.EmployeeService;
+import org.example.util.enums.Branch;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
-public class Menu {
+public class MainMenu {
 
     private final Scanner scanner;
     private final MenuItemsRepository menuItemsRepository;
+    private final EmployeeService employeeService;
 
-    public Menu(Scanner scanner, MenuItemsRepository menuItemsRepository) {
+    public MainMenu(Scanner scanner, MenuItemsRepository menuItemsRepository,
+                    EmployeeService employeeService) {
         this.scanner = scanner;
         this.menuItemsRepository = menuItemsRepository;
+        this.employeeService = employeeService;
     }
 
     public void startMenu() {
@@ -42,6 +49,7 @@ public class Menu {
         System.out.println("Input your firstname and press enter to continue\n");
         String firstname = scanner.nextLine();
         System.out.println("Welcome " + firstname + "\n");
+        mainMenu();
     }
 
     public void mainMenu() {
@@ -54,8 +62,48 @@ public class Menu {
             case "0":
                 startMenu();
                 break;
+            case "1":
+                employeeService.getAllEmployees().forEach(System.out::println);
+                mainMenu();
+                break;
+            case "2":
+                Employee employee = new Employee();
+
+                System.out.println("id:");
+                String employeeId = scanner.nextLine();
+                employee.setEmployeeId(employeeId);
+
+                System.out.println("full name:");
+                String fullName = scanner.nextLine();
+                employee.setFullName(fullName);
+
+                System.out.println("Score:");
+                byte score = scanner.nextByte();
+
+                employee.getEmployeeScore(score);
+
+                System.out.println(Arrays.toString(Branch.values()));
+                System.out.println("Type in the branch");
+
+                scanner.nextLine();
+                String branch = scanner.nextLine();
+                switch (branch.toUpperCase()) {
+                    case "IT":
+                        employee.setBranch(Branch.IT);
+                        break;
+                    case "SALES":
+                        employee.setBranch(Branch.SALES);
+                        break;
+                    case "FINANCE":
+                        employee.setBranch(Branch.FINANCE);
+                        break;
+                }
+
+                employeeService.addEmployee(employee);
+                mainMenu();
+                break;
             default:
-                System.out.println("Invalid item number try again\n");
+                System.err.println("Invalid item number try again\n");
                 mainMenu();
                 break;
         }
