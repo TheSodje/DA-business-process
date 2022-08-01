@@ -5,13 +5,15 @@ import java.util.List;
 
 public class MenuItemsRepository {
 
-    List<String> mainMenuItems = new ArrayList<>();
-
-    {
-        mainMenuItems.add("0. Return to start menu");
-    }
+    private final List<String> mainMenuItems = new ArrayList<>();
 
     public List<String> getMainMenuItems() {
         return mainMenuItems;
+    }
+
+    {
+        mainMenuItems.add("0. Return to start menu");
+        mainMenuItems.add("1. View all employees");
+        mainMenuItems.add("2. Add employee");
     }
 }
