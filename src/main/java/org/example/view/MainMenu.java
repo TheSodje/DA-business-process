@@ -2,6 +2,7 @@ package org.example.view;
 
 import org.example.entity.Employee;
 import org.example.repositories.MenuItemsRepository;
+import org.example.service.ApplicationService;
 import org.example.service.EmployeeService;
 import org.example.util.enums.Branch;
 
@@ -13,12 +14,14 @@ public class MainMenu {
     private final Scanner scanner;
     private final MenuItemsRepository menuItemsRepository;
     private final EmployeeService employeeService;
+    private final ApplicationService applicationService;
 
     public MainMenu(Scanner scanner, MenuItemsRepository menuItemsRepository,
-                    EmployeeService employeeService) {
+                    EmployeeService employeeService, ApplicationService applicationService) {
         this.scanner = scanner;
         this.menuItemsRepository = menuItemsRepository;
         this.employeeService = employeeService;
+        this.applicationService = applicationService;
     }
 
     public void startMenu() {
@@ -102,6 +105,9 @@ public class MainMenu {
                 employeeService.addEmployee(employee);
                 mainMenu();
                 break;
+            case "3":
+                applicationService.getApplications().forEach(System.out::println);
+                mainMenu();
             default:
                 System.err.println("Invalid item number try again\n");
                 mainMenu();

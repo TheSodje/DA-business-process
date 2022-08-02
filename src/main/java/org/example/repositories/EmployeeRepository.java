@@ -19,7 +19,7 @@ public class EmployeeRepository {
     }
 
     {
-        employees.add(new Employee("1", Branch.IT, (byte) 5, "john Wick"));
-        employees.add(new Employee("2", Branch.FINANCE, (byte) 6, "peter parker"));
+        employees.add(new Employee("1", Branch.IT, (byte) 5, "John Wick"));
+        employees.add(new Employee("2", Branch.FINANCE, (byte) 6, "Peter Parker"));
     }
 }

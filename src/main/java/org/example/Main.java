@@ -8,5 +8,6 @@ public class Main {
         Configuration configuration = new Configuration();
 
         configuration.menu().startMenu();
+
     }
 }

@@ -15,5 +15,6 @@ public class MenuItemsRepository {
         mainMenuItems.add("0. Return to start menu");
         mainMenuItems.add("1. View all employees");
         mainMenuItems.add("2. Add employee");
+        mainMenuItems.add("3. View Applications");
     }
 }
