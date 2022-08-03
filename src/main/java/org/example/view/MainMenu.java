@@ -4,6 +4,7 @@ import org.example.entity.Employee;
 import org.example.repositories.MenuItemsRepository;
 import org.example.service.ApplicationService;
 import org.example.service.EmployeeService;
+import org.example.service.WorkflowService;
 import org.example.util.enums.Branch;
 
 import java.util.Arrays;
@@ -15,13 +16,15 @@ public class MainMenu {
     private final MenuItemsRepository menuItemsRepository;
     private final EmployeeService employeeService;
     private final ApplicationService applicationService;
+    private final WorkflowService workflowService;
 
     public MainMenu(Scanner scanner, MenuItemsRepository menuItemsRepository,
-                    EmployeeService employeeService, ApplicationService applicationService) {
+                    EmployeeService employeeService, ApplicationService applicationService, WorkflowService workflowService) {
         this.scanner = scanner;
         this.menuItemsRepository = menuItemsRepository;
         this.employeeService = employeeService;
         this.applicationService = applicationService;
+        this.workflowService = workflowService;
     }
 
     public void startMenu() {
@@ -56,6 +59,7 @@ public class MainMenu {
     }
 
     public void mainMenu() {
+        System.out.println();
         System.out.println("What would you like to do?\n");
 
         menuItemsRepository.getMainMenuItems().forEach(System.out::println);
@@ -108,6 +112,11 @@ public class MainMenu {
             case "3":
                 applicationService.getApplications().forEach(System.out::println);
                 mainMenu();
+            case "4":
+                workflowService.viewWorkFlow();
+                mainMenu();
+            case "9":
+                System.exit(1);
             default:
                 System.err.println("Invalid item number try again\n");
                 mainMenu();

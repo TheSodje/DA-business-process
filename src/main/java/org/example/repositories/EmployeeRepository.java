@@ -21,5 +21,7 @@ public class EmployeeRepository {
     {
         employees.add(new Employee("1", Branch.IT, (byte) 5, "John Wick"));
         employees.add(new Employee("2", Branch.FINANCE, (byte) 6, "Peter Parker"));
+        employees.add(new Employee("3", Branch.SALES, (byte) 7, "Yuri Parker"));
+        employees.add(new Employee("4", Branch.IT, (byte) 8, "Sergei R"));
     }
 }

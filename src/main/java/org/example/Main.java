@@ -5,8 +5,8 @@ import org.example.config.Configuration;
 public class Main {
 
     public static void main(String[] args) {
-        Configuration configuration = new Configuration();
 
+        Configuration configuration = new Configuration();
         configuration.menu().startMenu();
 
     }

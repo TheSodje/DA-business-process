@@ -16,5 +16,7 @@ public class MenuItemsRepository {
         mainMenuItems.add("1. View all employees");
         mainMenuItems.add("2. Add employee");
         mainMenuItems.add("3. View Applications");
+        mainMenuItems.add("4. WorkFlows");
+        mainMenuItems.add("9. Exit Program");
     }
 }
