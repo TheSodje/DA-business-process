@@ -8,9 +8,9 @@ import java.util.List;
 
 public class EmployeeRepository {
 
-    private final List<Employee> employees = new ArrayList<>();
+    private final ArrayList<Employee> employees = new ArrayList<>();
 
-    public List<Employee> getEmployees() {
+    public ArrayList<Employee> getEmployees() {
         return employees;
     }
 
