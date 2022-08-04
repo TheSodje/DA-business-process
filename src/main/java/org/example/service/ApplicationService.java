@@ -9,4 +9,6 @@ public interface ApplicationService {
     Queue<Application> getApplications();
 
     boolean addApplication(Application application);
+
+    Application next();
 }

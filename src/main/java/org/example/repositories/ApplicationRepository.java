@@ -18,7 +18,11 @@ public class ApplicationRepository {
         }
     }
 
-     static class Compare implements Comparator<Application> {
+    public Application next() {
+        return applications.poll();
+    }
+
+    static class Compare implements Comparator<Application> {
 
          @Override
          public int compare(Application o1, Application o2) {
