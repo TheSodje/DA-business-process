@@ -1,4 +1,4 @@
-package org.example.repositories;
+package org.example.repositories.menus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +13,9 @@ public class MenuItemsRepository {
 
     {
         mainMenuItems.add("0. Return to start menu");
-        mainMenuItems.add("1. View all employees");
-        mainMenuItems.add("2. Add employee");
-        mainMenuItems.add("3. View Applications");
-        mainMenuItems.add("4. WorkFlows");
+        mainMenuItems.add("1. Employee functions  (view, edit, add employees, empl of the month)");
+        mainMenuItems.add("2. Applications (get all applications, by branch, filter)");
+        mainMenuItems.add("3. Workflow (view logistics)");
         mainMenuItems.add("9. Exit Program");
     }
 }

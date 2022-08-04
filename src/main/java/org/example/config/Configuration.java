@@ -2,7 +2,7 @@ package org.example.config;
 
 import org.example.repositories.ApplicationRepository;
 import org.example.repositories.EmployeeRepository;
-import org.example.repositories.MenuItemsRepository;
+import org.example.repositories.menus.MenuItemsRepository;
 import org.example.repositories.WorkFlowRepository;
 import org.example.service.ApplicationService;
 import org.example.service.EmployeeService;
@@ -10,7 +10,7 @@ import org.example.service.WorkflowService;
 import org.example.service.impl.ApplicationServiceImpl;
 import org.example.service.impl.EmployeeServiceImpl;
 import org.example.service.impl.WorkFlowServiceImpl;
-import org.example.view.MainMenu;
+import org.example.view.Menus;
 
 import java.util.Scanner;
 
@@ -24,8 +24,8 @@ public class Configuration {
 //    New new
     private final WorkFlowRepository workFlowRepository = new WorkFlowRepository();
 
-    public MainMenu menu() {
-        return new MainMenu(scanner, menuItemsRepository, employeeService(), applicationService(), workflowService());
+    public Menus menu() {
+        return new Menus(scanner, menuItemsRepository, employeeService(), applicationService(), workflowService());
     }
 
     public EmployeeService employeeService() {
