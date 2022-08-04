@@ -69,5 +69,7 @@ public class ApplicationRepository {
         sleeper(2000);
         applications.add(new Application("Rick Grimes", "Bachelor", Branch.IT, LocalDateTime.now()));
         applications.add(new Application("Jim Harper", "Master", Branch.SALES, LocalDateTime.now()));
+
     }
+
 }
