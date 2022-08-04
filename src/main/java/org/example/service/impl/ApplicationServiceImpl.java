@@ -23,4 +23,9 @@ public class ApplicationServiceImpl implements ApplicationService {
     public boolean addApplication(Application application) {
         return applicationRepo.addApplication(application);
     }
+
+    @Override
+    public Application next() {
+        return applicationRepo.next();
+    }
 }

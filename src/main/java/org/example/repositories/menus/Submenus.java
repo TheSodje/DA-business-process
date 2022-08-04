@@ -28,15 +28,18 @@ public class Submenus {
         filterApplicationsMenuItems.add("0. Return To Applications Menu");
     }
 
-    private final List<String> viewWorkflowMenuItems = new ArrayList<>();
+    private final List<String> editWorkflowMenuItems = new ArrayList<>();
 
-    public List<String> getViewWorkflowMenuItems() {
-        return viewWorkflowMenuItems;
+    public List<String> getEditWorkflowMenuItems() {
+        return editWorkflowMenuItems;
     }
 
     {
-        viewWorkflowMenuItems.add("1. Edit Workflow");
-        viewWorkflowMenuItems.add("0. Return Workflow Menu");
+        editWorkflowMenuItems.add("1. To add a node at the beginning");
+        editWorkflowMenuItems.add("2. To add a node at the end");
+        editWorkflowMenuItems.add("3. To add a node at a certain point");
+        editWorkflowMenuItems.add("4. To replace an employee");
+        editWorkflowMenuItems.add("0. Return Workflow");
     }
 
 

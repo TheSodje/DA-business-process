@@ -13,6 +13,6 @@ public class WorkflowMenuItemsRepository {
 
     {
         workflowMenuItems.add("0. Return to main menu");
-        workflowMenuItems.add("1. View Workflow");
+        workflowMenuItems.add("1. Edit Workflow");
     }
 }

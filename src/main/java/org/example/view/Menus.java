@@ -33,35 +33,37 @@ public class Menus {
 
 
     public void startMenu() {
-//        System.out.println("\n" +
-//                "          _____                    _____                    _____          \n" +
-//                "         /\\    \\                  /\\    \\                  /\\    \\         \n" +
-//                "        /::\\____\\                /::\\    \\                /::\\____\\        \n" +
-//                "       /:::/    /               /::::\\    \\              /::::|   |        \n" +
-//                "      /:::/    /               /::::::\\    \\            /:::::|   |        \n" +
-//                "     /:::/    /               /:::/\\:::\\    \\          /::::::|   |        \n" +
-//                "    /:::/____/               /:::/__\\:::\\    \\        /:::/|::|   |        \n" +
-//                "   /::::\\    \\              /::::\\   \\:::\\    \\      /:::/ |::|   |        \n" +
-//                "  /::::::\\    \\   _____    /::::::\\   \\:::\\    \\    /:::/  |::|___|______  \n" +
-//                " /:::/\\:::\\    \\ /\\    \\  /:::/\\:::\\   \\:::\\____\\  /:::/   |::::::::\\    \\ \n" +
-//                "/:::/  \\:::\\    /::\\____\\/:::/  \\:::\\   \\:::|    |/:::/    |:::::::::\\____\\\n" +
-//                "\\::/    \\:::\\  /:::/    /\\::/   |::::\\  /:::|____|\\::/    / ~~~~~/:::/    /\n" +
-//                " \\/____/ \\:::\\/:::/    /  \\/____|:::::\\/:::/    /  \\/____/      /:::/    / \n" +
-//                "          \\::::::/    /         |:::::::::/    /               /:::/    /  \n" +
-//                "           \\::::/    /          |::|\\::::/    /               /:::/    /   \n" +
-//                "           /:::/    /           |::| \\::/____/               /:::/    /    \n" +
-//                "          /:::/    /            |::|  ~|                    /:::/    /     \n" +
-//                "         /:::/    /             |::|   |                   /:::/    /      \n" +
-//                "        /:::/    /              \\::|   |                  /:::/    /       \n" +
-//                "        \\::/    /                \\:|   |                  \\::/    /        \n" +
-//                "         \\/____/                  \\|___|                   \\/____/         \n" +
-//                "                                                                           \n");
-//
-//        System.out.println("Input your firstname and press enter to continue\n");
-//        String firstname = scanner.nextLine();
-//        System.out.println("Welcome " + firstname + "\n");
+        System.out.println("\n" +
+                "          _____                    _____                    _____          \n" +
+                "         /\\    \\                  /\\    \\                  /\\    \\         \n" +
+                "        /::\\____\\                /::\\    \\                /::\\____\\        \n" +
+                "       /:::/    /               /::::\\    \\              /::::|   |        \n" +
+                "      /:::/    /               /::::::\\    \\            /:::::|   |        \n" +
+                "     /:::/    /               /:::/\\:::\\    \\          /::::::|   |        \n" +
+                "    /:::/____/               /:::/__\\:::\\    \\        /:::/|::|   |        \n" +
+                "   /::::\\    \\              /::::\\   \\:::\\    \\      /:::/ |::|   |        \n" +
+                "  /::::::\\    \\   _____    /::::::\\   \\:::\\    \\    /:::/  |::|___|______  \n" +
+                " /:::/\\:::\\    \\ /\\    \\  /:::/\\:::\\   \\:::\\____\\  /:::/   |::::::::\\    \\ \n" +
+                "/:::/  \\:::\\    /::\\____\\/:::/  \\:::\\   \\:::|    |/:::/    |:::::::::\\____\\\n" +
+                "\\::/    \\:::\\  /:::/    /\\::/   |::::\\  /:::|____|\\::/    / ~~~~~/:::/    /\n" +
+                " \\/____/ \\:::\\/:::/    /  \\/____|:::::\\/:::/    /  \\/____/      /:::/    / \n" +
+                "          \\::::::/    /         |:::::::::/    /               /:::/    /  \n" +
+                "           \\::::/    /          |::|\\::::/    /               /:::/    /   \n" +
+                "           /:::/    /           |::| \\::/____/               /:::/    /    \n" +
+                "          /:::/    /            |::|  ~|                    /:::/    /     \n" +
+                "         /:::/    /             |::|   |                   /:::/    /      \n" +
+                "        /:::/    /              \\::|   |                  /:::/    /       \n" +
+                "        \\::/    /                \\:|   |                  \\::/    /        \n" +
+                "         \\/____/                  \\|___|                   \\/____/         \n" +
+                "                                                                           \n");
+
+        System.out.println("Input your firstname and press enter to continue\n");
+        String firstname = scanner.nextLine();
+        System.out.println("Welcome " + firstname + "\n");
         mainMenu();
     }
+
+    // --------------------------Main Menu ---------------------------------//
 
     public void mainMenu() {
         System.out.println();
@@ -75,55 +77,15 @@ public class Menus {
                 startMenu();
                 break;
             case "1":
-
-                submenus.getViewEmployeesMenu().forEach(System.out::println);
-//                employeeService.getAllEmployees().forEach(System.out::println);
-//                mainMenu();
+                employeeMenu();
                 break;
             case "2":
-                Employee employee = new Employee();
-
-                System.out.println("id:");
-                String employeeId = scanner.nextLine();
-                employee.setEmployeeId(employeeId);
-
-                System.out.println("full name:");
-                String fullName = scanner.nextLine();
-                employee.setFullName(fullName);
-
-                System.out.println("Score:");
-                byte score = scanner.nextByte();
-
-                employee.getEmployeeScore(score);
-
-                System.out.println(Arrays.toString(Branch.values()));
-                System.out.println("Type in the branch");
-
-                scanner.nextLine();
-                String branch = scanner.nextLine();
-                switch (branch.toUpperCase()) {
-                    case "IT":
-                        employee.setBranch(Branch.IT);
-                        break;
-                    case "SALES":
-                        employee.setBranch(Branch.SALES);
-                        break;
-                    case "FINANCE":
-                        employee.setBranch(Branch.FINANCE);
-                        break;
-                }
-
-                employeeService.addEmployee(employee);
-                mainMenu();
-                break;
+                applicationsMenu();
             case "3":
-                applicationService.getApplications().forEach(System.out::println);
-                mainMenu();
-            case "4":
-                workflowService.viewWorkFlow();
-                mainMenu();
+                workflowMenu();
             case "9":
-                System.exit(1);
+                System.out.println("See you later?");
+                System.exit(0);
             default:
                 System.err.println("Invalid item number try again\n");
                 mainMenu();
@@ -131,31 +93,10 @@ public class Menus {
         }
     }
 
-    public void viewAllEmployeesMenu() {
-        System.out.println();
+    // --------------------------Employee Menu ---------------------------------//
 
-        menuItemsRepository.getMainMenuItems().forEach(System.out::println);
-
-        String item = scanner.nextLine();
-        switch (item) {
-            case "0":
-                startMenu();
-                break;
-            case "1":
-                employeeService.getAllEmployees().forEach(System.out::println);
-                mainMenu();
-                break;
-            case "9":
-                System.exit(1);
-            default:
-                System.err.println("Invalid item number try again\n");
-                mainMenu();
-                break;
-        }
-    }
     public void employeeMenu() {
         System.out.println();
-
         employeeMenuItemsRepository.getEmployeeMenuItemsItems().forEach(System.out::println);
 
         String item = scanner.nextLine();
@@ -164,17 +105,7 @@ public class Menus {
                 mainMenu();
                 break;
             case "1":
-                submenus.getViewEmployeesMenu().forEach(System.out::println);
-                String response = scanner.nextLine();
-                if (response.equals("1")){
-//                  order empl by score (ascending)
-                } else if(response.equals("2")) {
-//                    order empl by score (desc)
-                } else if(response.equals("0")) {
-                    employeeMenu();
-                } else {
-                    System.out.println("Invalid number chosen");
-                }
+                viewEmployeesMenu();
                 break;
             case "2":
                 System.out.println("Which branch do you want to see");
@@ -188,14 +119,170 @@ public class Menus {
 //                method to find employee (in params)
                 employeeMenu();
             case "4":
+//                Add employee
+                Employee newEmployee = new Employee();
 
-                workflowService.viewWorkFlow();
-                mainMenu();
-            case "9":
-                System.exit(1);
+                System.out.println("id:");
+                String employeeId = scanner.nextLine();
+                newEmployee.setEmployeeId(employeeId);
+
+                System.out.println("full name:");
+                String fullName = scanner.nextLine();
+                newEmployee.setFullName(fullName);
+
+                System.out.println("Score:");
+                byte score = scanner.nextByte();
+
+                newEmployee.getEmployeeScore(score);
+
+                System.out.println(Arrays.toString(Branch.values()));
+                System.out.println("Type in the branch");
+
+                scanner.nextLine();
+                String branchNewEmployee = scanner.nextLine();
+                switch (branchNewEmployee.toUpperCase()) {
+                    case "IT":
+                        newEmployee.setBranch(Branch.IT);
+                        break;
+                    case "SALES":
+                        newEmployee.setBranch(Branch.SALES);
+                        break;
+                    case "FINANCE":
+                        newEmployee.setBranch(Branch.FINANCE);
+                        break;
+                }
+                employeeService.addEmployee(newEmployee);
+                employeeMenu();
+                break;
+            case "5":
+//                Employee(s) of the month
+//                Method to return array with employees with highest score.
+                break;
             default:
                 System.err.println("Invalid item number try again\n");
+                employeeMenu();
+                break;
+        }
+    }
+
+    public void viewEmployeesMenu() {
+        employeeService.getAllEmployees().forEach(System.out::println);
+        System.out.println();
+        submenus.getViewEmployeesMenu().forEach(System.out::println);
+        String response = scanner.nextLine();
+        switch (response) {
+            case "0":
+                employeeMenu();
+                break;
+            case "1":
+//                  order empl by score (ascending)
+                break;
+            case "2":
+//                    order empl by score (desc)
+                break;
+            case "3":
+                employeeMenu();
+                break;
+            default:
+                System.out.println("Invalid number chosen");
+                break;
+        }
+    }
+
+    // --------------------------Applications Menu ---------------------------------//
+
+    public void applicationsMenu() {
+        System.out.println();
+        applicationsMenuItemsRepository.getApplicationsMenuItems().forEach(System.out::println);
+
+        String item = scanner.nextLine();
+        switch (item) {
+            case "0":
                 mainMenu();
+                break;
+            case "1":
+                applicationService.getApplications().forEach(System.out::println);
+                applicationsMenu();
+                break;
+            case "2":
+                String branch = scanner.nextLine();
+//                method to order application by branch in params
+                applicationsMenu();
+                break;
+            case "3":
+                filterApplicationsMenu();
+                break;
+            default:
+                System.err.println("Invalid item number try again\n");
+                applicationsMenu();
+                break;
+        }
+    }
+
+    public void filterApplicationsMenu() {
+        submenus.getFilterApplicationsMenuItems().forEach(System.out::println);
+        String choice = scanner.nextLine();
+        switch (choice) {
+            case "0":
+                applicationsMenu();
+            case  "1":
+                if (applicationService.getApplications().isEmpty()) {
+                    System.out.println("No Applications Left");
+                    applicationsMenu();
+                }
+                System.out.println(applicationService.next());
+                filterApplicationsMenu();
+            default:
+                System.err.println("Invalid item number try again\n");
+                filterApplicationsMenu();
+                break;
+        }
+    }
+
+    // --------------------------Workflow Menu ---------------------------------//
+
+    public void workflowMenu() {
+        System.out.println("Workflow");
+        workflowService.viewWorkFlow();
+        workflowMenuItemsRepository.getWorkflowMenuItems().forEach(System.out::println);
+
+        String choice = scanner.nextLine();
+        switch (choice) {
+            case "0":
+                mainMenu();
+                break;
+            case "1":
+                editWorkflow();
+            default:
+                System.err.println("Invalid item number try again\n");
+                applicationsMenu();
+                break;
+        }
+    }
+
+    public void editWorkflow() {
+        System.out.println();
+        submenus.getEditWorkflowMenuItems().forEach(System.out::println);
+        String item = scanner.nextLine();
+        switch (item) {
+            case "0":
+                workflowMenu();
+                break;
+            case "1":
+//                addFirst method
+                break;
+            case "2":
+//                 addLast Method
+                break;
+            case "3":
+//                 add Method
+                break;
+            case "4":
+//                 replace empl method
+                break;
+            default:
+                System.err.println("Invalid item number try again\n");
+                editWorkflow();
                 break;
         }
     }
