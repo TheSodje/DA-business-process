@@ -17,6 +17,7 @@ public class Menus {
     private final EmployeeService employeeService;
     private final ApplicationService applicationService;
     private final WorkflowService workflowService;
+
     public Menus(Scanner scanner, MenuItemsRepository menuItemsRepository,
                  EmployeeService employeeService, ApplicationService applicationService, WorkflowService workflowService) {
         this.scanner = scanner;
@@ -133,7 +134,7 @@ public class Menus {
                 System.out.println("Score:");
                 byte score = scanner.nextByte();
 
-                newEmployee.getEmployeeScore(score);
+                newEmployee.setEmployeeScore(score);
 
                 System.out.println(Arrays.toString(Branch.values()));
                 System.out.println("Type in the branch");
@@ -176,6 +177,8 @@ public class Menus {
                 break;
             case "1":
 //                  order empl by score (ascending)
+                employeeService.getAllEmployeesSortByLowestScore().forEach(System.out::println);
+                employeeMenu();
                 break;
             case "2":
 //                    order empl by score (desc)
@@ -225,7 +228,7 @@ public class Menus {
         switch (choice) {
             case "0":
                 applicationsMenu();
-            case  "1":
+            case "1":
                 if (applicationService.getApplications().isEmpty()) {
                     System.out.println("No Applications Left");
                     applicationsMenu();

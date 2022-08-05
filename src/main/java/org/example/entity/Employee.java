@@ -47,7 +47,7 @@ public class Employee {
         this.branch = branch;
     }
 
-    public Byte getEmployeeScore(byte b) {
+    public Byte getEmployeeScore() {
         return employeeScore;
     }
 
