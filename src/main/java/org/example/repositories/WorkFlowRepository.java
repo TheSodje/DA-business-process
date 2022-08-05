@@ -64,10 +64,11 @@ public class WorkFlowRepository {
     }
 
     {
-        workflow.add(employees.get(3));
-        workflow.add(employees.get(1));
-        workflow.add(employees.get(4));
         workflow.add(employees.get(2));
+        workflow.add(employees.get(4));
+        workflow.add(employees.get(0));
+        workflow.add(employees.get(8));
+        workflow.add(employees.get(6));
     }
 
 }

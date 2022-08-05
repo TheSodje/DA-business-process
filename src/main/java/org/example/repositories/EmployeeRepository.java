@@ -18,7 +18,6 @@ public class EmployeeRepository {
     }
 
     public Employee findEmployeeByName(String name) {
-//        Optional<Employee> employee = null;
         Employee employee= null;
         for (Employee empl: employees){
             if (empl.getFullName().equalsIgnoreCase(name)){
@@ -26,24 +25,7 @@ public class EmployeeRepository {
                 break;
             }
         }
-
         return employee;
-    }
-
-    public boolean branchExist(String branchString){
-        boolean exist = false;
-        ArrayList<String> branchList = new ArrayList<>();
-        Arrays.stream(Branch.values()).forEach(brnch -> branchList.add(brnch.toString()));
-
-        for (String branch: branchList) {
-            if(branch.equalsIgnoreCase(branchString)){
-                exist = true;
-                break;
-            }
-        }
-
-        return exist;
-
     }
 
 

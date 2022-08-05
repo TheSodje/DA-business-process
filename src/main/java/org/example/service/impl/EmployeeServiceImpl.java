@@ -6,7 +6,6 @@ import org.example.service.EmployeeService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class EmployeeServiceImpl implements EmployeeService {
 
@@ -29,11 +28,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee findEmployeeByName(String name) {
         return employeeRepository.findEmployeeByName(name);
-    }
-
-    @Override
-    public boolean branchExist(String branch) {
-        return employeeRepository.branchExist(branch);
     }
 
     @Override

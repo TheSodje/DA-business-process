@@ -15,6 +15,5 @@ public interface EmployeeService {
 
     Employee findEmployeeByName(String name);
 
-    boolean branchExist(String branch);
 
 }

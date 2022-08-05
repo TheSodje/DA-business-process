@@ -12,6 +12,7 @@ import org.example.service.EmployeeService;
 import org.example.service.WorkflowService;
 import org.example.util.enums.Branch;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.Scanner;
@@ -147,9 +148,13 @@ public class Menus {
                 String fullName = scanner.nextLine();
                 newEmployee.setFullName(fullName);
 
+                //Add score
+                System.out.println("Employee Score:");
+                byte score = Byte.parseByte(scanner.nextLine());
+                newEmployee.setEmployeeScore(score);
+
                 //Add branch
                 newEmployee.setBranch(branchVerification());
-
 
                 //Add Employee to arrayList
                 employeeService.addEmployee(newEmployee);
@@ -255,14 +260,14 @@ public class Menus {
         application.setName(name);
 
         //Insert Education
-        System.out.println("education: " + "(MBO[middelbaar], HBO of Master)");
+        System.out.println("education: " + "(MBO[middelbaar] of HBO)");
         String education = scanner.nextLine().toUpperCase();
         application.setEducation(education);
 
         //Set Branch
         application.setVacature(branchVerification());
 
-        //Add application to Qeue
+        //Add application to Queue
         applicationService.addApplication(application);
 
         System.out.println("New Application inserted: " + application);
@@ -364,9 +369,8 @@ public class Menus {
         System.out.println(Arrays.toString(Branch.values()));
         System.out.println("Type in the branch");
         String vacatureBranch = scanner.nextLine().toUpperCase().strip();
-        boolean isIn = employeeService.branchExist(vacatureBranch);
         Branch branch;
-         if (isIn) {
+         if (branchExist(vacatureBranch)) {
              branch = Branch.valueOf(vacatureBranch);
          } else {
              System.out.println("We do not have branch: " +vacatureBranch+ " in our system");
@@ -375,6 +379,21 @@ public class Menus {
          }
 
         return branch;
+    }
+
+    public boolean branchExist(String branchString){
+        boolean exist = false;
+        ArrayList<String> branchList = new ArrayList<>();
+        Arrays.stream(Branch.values()).forEach(brnch -> branchList.add(brnch.toString()));
+
+        for (String branch: branchList) {
+            if(branch.equalsIgnoreCase(branchString)){
+                exist = true;
+                break;
+            }
+        }
+        return exist;
+
     }
 
 }
