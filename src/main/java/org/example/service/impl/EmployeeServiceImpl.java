@@ -3,7 +3,6 @@ package org.example.service.impl;
 import org.example.entity.Employee;
 import org.example.repositories.EmployeeRepository;
 import org.example.service.EmployeeService;
-import org.example.util.enums.Branch;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +37,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<Employee> getAllEmployeesSortByLowestScore() {
-        return divideArrayElements(0, getAllEmployees().size() - 1);
+        List<Employee> sortedEmployees = divideArrayElements(0, getAllEmployees().size() - 1);
+        employeeRepository.setEmployees(sortedEmployees);
+        return getAllEmployees();
     }
 
     /*

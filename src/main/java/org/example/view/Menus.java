@@ -2,7 +2,7 @@ package org.example.view;
 
 import org.example.entity.Application;
 import org.example.entity.Employee;
-import org.example.repositories.menus.*;
+import org.example.repositories.menus.MenuItemsRepository;
 import org.example.repositories.menus.submenus.ApplicationsMenuItemsRepository;
 import org.example.repositories.menus.submenus.EmployeeMenuItemsRepository;
 import org.example.repositories.menus.submenus.Submenus;
@@ -149,7 +149,7 @@ public class Menus {
                 //Add Employee to arrayList
                 employeeService.addEmployee(newEmployee);
 
-                System.out.println("New Employee added: "+ newEmployee);
+                System.out.println("New Employee added: " + newEmployee);
                 System.out.println();
                 viewEmployeesMenu();
                 break;
@@ -240,7 +240,8 @@ public class Menus {
                 break;
         }
     }
-    public void addApplicationMenu(){
+
+    public void addApplicationMenu() {
         Application application = new Application();
 
         //Insert Name
@@ -259,7 +260,7 @@ public class Menus {
         //Add application to Qeue
         applicationService.addApplication(application);
 
-        System.out.println("New Application inserted: "+ application);
+        System.out.println("New Application inserted: " + application);
         System.out.println();
     }
 
@@ -320,7 +321,7 @@ public class Menus {
                 String employeeNameAfterNode = scanner.nextLine();
                 Employee nodeAfter = workflowService.findNodeByName(employeeNameAfterNode);
 
-                int position = workflowService.getWorkflow().indexOf(nodeAfter) ;
+                int position = workflowService.getWorkflow().indexOf(nodeAfter);
                 workflowService.getWorkflow().add(position, newEmployeeNode);
 
                 workflowMenu();
@@ -354,13 +355,13 @@ public class Menus {
 
 //    -----------------------------------Helper Methods ---------------------------------------------//
 
-    public Branch branchVerification(){
+    public Branch branchVerification() {
         System.out.println(Arrays.toString(Branch.values()));
         System.out.println("Type in the branch");
         String vacatureBranch = scanner.nextLine().toUpperCase().strip();
         Branch openBranch = findBranch(vacatureBranch);
-        if (openBranch == null){
-            System.out.println("We do not have branch: " +vacatureBranch+ " in our system");
+        if (openBranch == null) {
+            System.out.println("We do not have branch: " + vacatureBranch + " in our system");
             System.out.println("Please try again");
             branchVerification();
         }
@@ -368,7 +369,7 @@ public class Menus {
         return openBranch;
     }
 
-    public Branch findBranch(String branchNewEmpl){
+    public Branch findBranch(String branchNewEmpl) {
         Branch branchNew = null;
         if (employeeService.branchExist(branchNewEmpl)) {
             branchNew = Branch.valueOf(branchNewEmpl);

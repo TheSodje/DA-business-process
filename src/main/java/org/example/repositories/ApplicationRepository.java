@@ -20,19 +20,19 @@ public class ApplicationRepository {
             String second_prio = "HBO";
             String third_prio = "MBO";
 
-            if (education1.equalsIgnoreCase(second_prio) && education2.equalsIgnoreCase(third_prio)){
+            if (education1.equalsIgnoreCase(second_prio) && education2.equalsIgnoreCase(third_prio)) {
                 return -1;
             }
-            if (education1.equalsIgnoreCase(third_prio) && education2.equalsIgnoreCase(second_prio)){
+            if (education1.equalsIgnoreCase(third_prio) && education2.equalsIgnoreCase(second_prio)) {
                 return 1;
             }
-            if(education1.equalsIgnoreCase(first_prio) && education2.equalsIgnoreCase(second_prio)){
+            if (education1.equalsIgnoreCase(first_prio) && education2.equalsIgnoreCase(second_prio)) {
                 return -1;
             }
-            if (education1.equalsIgnoreCase(first_prio) && education2.equalsIgnoreCase(third_prio)){
+            if (education1.equalsIgnoreCase(first_prio) && education2.equalsIgnoreCase(third_prio)) {
                 return -1;
             }
-            if (education1.equalsIgnoreCase(second_prio) && education2.equalsIgnoreCase(first_prio)){
+            if (education1.equalsIgnoreCase(second_prio) && education2.equalsIgnoreCase(first_prio)) {
                 return 1;
             }
             if (education1.equalsIgnoreCase(third_prio) && education2.equalsIgnoreCase(first_prio)) {
@@ -49,7 +49,7 @@ public class ApplicationRepository {
         return applications;
     }
 
-    public boolean addApplication(Application application){
+    public boolean addApplication(Application application) {
         application.setSubmissionTime(LocalDateTime.now());
         return applications.offer(application);
     }
@@ -57,7 +57,8 @@ public class ApplicationRepository {
     public Application next() {
         return applications.poll();
     }
-    private static void sleeper(long milisec){
+
+    private static void sleeper(long milisec) {
         try {
             Thread.sleep(milisec);
         } catch (InterruptedException e) {
