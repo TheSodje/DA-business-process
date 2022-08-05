@@ -242,7 +242,7 @@ public class Menus {
         application.setName(name);
 
         //Insert Education
-        System.out.println("education: " + "(MBO[middelbaar] of HBO)");
+        System.out.println("education: " + "(MBO[middelbaar], HBO of Master)");
         String education = scanner.nextLine().toUpperCase();
         application.setEducation(education);
 
