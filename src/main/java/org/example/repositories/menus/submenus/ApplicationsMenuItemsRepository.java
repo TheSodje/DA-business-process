@@ -1,4 +1,4 @@
-package org.example.repositories.menus;
+package org.example.repositories.menus.submenus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,5 +16,6 @@ public class ApplicationsMenuItemsRepository {
         applicationsMenuItems.add("1. Get All Applications");
         applicationsMenuItems.add("2. View Applications By Branch");
         applicationsMenuItems.add("3. Filter Through Applicants");
+        applicationsMenuItems.add("4. Add Application");
     }
 }

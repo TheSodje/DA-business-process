@@ -5,12 +5,65 @@ import org.example.util.enums.Branch;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.PriorityQueue;
-import java.util.Queue;
 
 public class ApplicationRepository {
 
-    private static void sleeper(long milisec){
+
+    static class Compare implements Comparator<Application> {
+
+        @Override
+        public int compare(Application o1, Application o2) {
+            String education1 = o1.getEducation();
+            String education2 = o2.getEducation();
+
+            Map<String, Integer> map = new HashMap<>();
+            map.put("MASTER", 3);
+            map.put("HBO", 2);
+            map.put("MBO", 1);
+
+            int compareResult = 0;
+            boolean isInMap = false;
+
+            if (map.containsKey(education1) && map.containsKey(education2)){
+                isInMap = true;
+            }
+
+            if (isInMap){
+                int rank1 = map.get(education1);
+                int rank2 = map.get(education2);
+                int result = rank1 - rank2;
+
+                if (result > 0) {
+                    compareResult = -1;
+                } if (result < 0) {
+                    compareResult = 1;
+                }
+            }
+
+            System.out.println(compareResult);
+            return compareResult;
+        }
+    }
+
+    private final PriorityQueue<Application> applications = new PriorityQueue<>(new Compare());
+
+    public PriorityQueue<Application> getApplications() {
+        return applications;
+    }
+
+    public boolean addApplication(Application application) {
+        application.setSubmissionTime(LocalDateTime.now());
+        return applications.offer(application);
+    }
+
+    public Application next() {
+        return applications.poll();
+    }
+
+    private static void sleeper(long milisec) {
         try {
             Thread.sleep(milisec);
         } catch (InterruptedException e) {
@@ -18,62 +71,15 @@ public class ApplicationRepository {
         }
     }
 
-    public Application next() {
-        return applications.poll();
-    }
-
-    static class Compare implements Comparator<Application> {
-
-         @Override
-         public int compare(Application o1, Application o2) {
-             String education1 = o1.getEducation();
-             String education2 = o2.getEducation();
-
-             String first_prio = "Master";
-             String second_prio = "Bachelor";
-             String third_prio = "MBO";
-
-             if (education1.equals(second_prio) && education2.equals(third_prio)){
-                 return -1;
-             }
-             if (education1.equals(first_prio) && (education2.equals(second_prio) || education2.equals(third_prio))) {
-                 return -1;
-             }
-             if ((education1.equals(second_prio) || education1.equals(third_prio)) && education2.equals(first_prio)){
-                     return 1;
-             }
-
-             if (education1.equals(third_prio) && education2.equals(second_prio)){
-                 return 1;
-             }
-
-             if(o1.getSubmissionTime().isBefore(o2.getSubmissionTime())){
-                 return -1;
-             }
-
-             return 0;
-         }
-     }
-
-    private final Queue<Application> applications = new PriorityQueue<>(new Compare());
-
-    public Queue<Application> getApplications() {
-        return applications;
-    }
-
-    public boolean addApplication(Application application){
-        application.setSubmissionTime(LocalDateTime.now());
-        return applications.add(application);
-    }
 
     {
-        applications.add(new Application("Dwight Schrute", "MBO", Branch.IT, LocalDateTime.now()));
+        applications.add(new Application("Dwight Schrute", "HBO", Branch.IT, LocalDateTime.now()));
         sleeper(3000);
-        applications.add(new Application("Michael Schmid", "Master", Branch.FINANCE, LocalDateTime.now()));
+        applications.add(new Application("Michael Schmid", "MASTER", Branch.FINANCE, LocalDateTime.now()));
         sleeper(2000);
-        applications.add(new Application("Rick Grimes", "Bachelor", Branch.IT, LocalDateTime.now()));
-        applications.add(new Application("Jim Harper", "Master", Branch.SALES, LocalDateTime.now()));
-
+        applications.add(new Application("Rick Grimes", "HBO", Branch.HR, LocalDateTime.now()));
+        applications.add(new Application("Jim Harper", "MASTER", Branch.SALES, LocalDateTime.now()));
+        sleeper(1500);
+        applications.add(new Application("John Smith", "MBO", Branch.IT, LocalDateTime.now()));
     }
-
 }

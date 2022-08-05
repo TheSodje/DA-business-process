@@ -9,4 +9,11 @@ public interface EmployeeService {
     List<Employee> getAllEmployees();
 
     boolean addEmployee(Employee employee);
+
+    List<Employee> getAllEmployeesSortByLowestScore();
+
+    Employee findEmployeeByName(String name);
+
+    boolean branchExist(String branch);
+
 }

@@ -23,6 +23,16 @@ public class Employee {
         this.fullName = fullName;
     }
 
+    public Employee(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public Employee(String employeeId, Branch branch, String fullName) {
+        this.employeeId = employeeId;
+        this.branch = branch;
+        this.fullName = fullName;
+    }
+
     public String getFullName() {
         return fullName;
     }
@@ -47,7 +57,7 @@ public class Employee {
         this.branch = branch;
     }
 
-    public Byte getEmployeeScore(byte b) {
+    public Byte getEmployeeScore() {
         return employeeScore;
     }
 
