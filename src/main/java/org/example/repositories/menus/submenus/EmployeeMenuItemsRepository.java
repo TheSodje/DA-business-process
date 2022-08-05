@@ -1,4 +1,4 @@
-package org.example.repositories.menus;
+package org.example.repositories.menus.submenus;
 
 import java.util.ArrayList;
 import java.util.List;

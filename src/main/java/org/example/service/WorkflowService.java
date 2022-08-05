@@ -12,4 +12,7 @@ public interface WorkflowService {
     void replace(Employee employee1, Employee employee2);
     void viewWorkFlow();
 
+    Employee findNodeByName(String name);
+
+    void remove(String name);
 }

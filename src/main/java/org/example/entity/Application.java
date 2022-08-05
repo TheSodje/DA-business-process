@@ -4,7 +4,7 @@ import org.example.util.enums.Branch;
 
 import java.time.LocalDateTime;
 
-public class Application {
+public class Application{
 
     private String name;
     private String education;
@@ -23,6 +23,12 @@ public class Application {
         this.education = education;
         this.vacature = vacature;
     }
+
+    public Application() {
+
+    }
+
+
 
     public String getName() {
         return name;

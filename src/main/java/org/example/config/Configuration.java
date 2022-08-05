@@ -20,8 +20,6 @@ public class Configuration {
     private final MenuItemsRepository menuItemsRepository = new MenuItemsRepository();
     private final EmployeeRepository employeeRepository = new EmployeeRepository();
     private final ApplicationRepository applicationRepository = new ApplicationRepository();
-
-//    New new
     private final WorkFlowRepository workFlowRepository = new WorkFlowRepository();
 
     public Menus menu() {

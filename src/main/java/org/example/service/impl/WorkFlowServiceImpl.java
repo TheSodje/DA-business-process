@@ -38,4 +38,14 @@ public class WorkFlowServiceImpl implements WorkflowService {
     public void viewWorkFlow() {
         workFlowRepo.viewWorkflow();
     }
+
+    @Override
+    public Employee findNodeByName(String employeeNameAfter) {
+        return workFlowRepo.findNode(employeeNameAfter);
+    }
+
+    @Override
+    public void remove(String name) {
+        workFlowRepo.remove(name);
+    }
 }

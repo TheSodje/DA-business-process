@@ -1,4 +1,4 @@
-package org.example.repositories.menus;
+package org.example.repositories.menus.submenus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +10,8 @@ public class WorkflowMenuItemsRepository {
     public List<String> getWorkflowMenuItems() {
         return workflowMenuItems;
     }
+
+
 
     {
         workflowMenuItems.add("0. Return to main menu");
