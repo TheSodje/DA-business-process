@@ -351,6 +351,7 @@ public class Menus {
         System.out.println(Arrays.toString(Branch.values()));
         System.out.println("Type in the branch");
         String vacatureBranch = scanner.nextLine().toUpperCase().strip();
+
         Branch openBranch = findBranch(vacatureBranch);
         if (openBranch == null){
             System.out.println("We do not have branch: " +vacatureBranch+ " in our system");
