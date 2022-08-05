@@ -12,10 +12,11 @@ import java.util.PriorityQueue;
 public class ApplicationRepository {
 
 
-    static class Compare implements Comparator<Application> {
+    static class ApplicationSorter implements Comparator<Application> {
 
         @Override
         public int compare(Application o1, Application o2) {
+
             String education1 = o1.getEducation();
             String education2 = o2.getEducation();
 
@@ -25,22 +26,18 @@ public class ApplicationRepository {
             map.put("MBO", 1);
 
             int compareResult = 0;
-            boolean isInMap = false;
 
             if (map.containsKey(education1) && map.containsKey(education2)){
-                isInMap = true;
-            }
-
-            if (isInMap){
                 int rank1 = map.get(education1);
                 int rank2 = map.get(education2);
                 int result = rank1 - rank2;
 
                 if (result > 0) {
                     compareResult = -1;
-                } if (result < 0) {
+                } if (result <= 0) {
                     compareResult = 1;
                 }
+
             }
 
             System.out.println(compareResult);
@@ -48,7 +45,7 @@ public class ApplicationRepository {
         }
     }
 
-    private final PriorityQueue<Application> applications = new PriorityQueue<>(new Compare());
+    private final PriorityQueue<Application> applications = new PriorityQueue<>(new ApplicationSorter());
 
     public PriorityQueue<Application> getApplications() {
         return applications;
@@ -73,13 +70,16 @@ public class ApplicationRepository {
 
 
     {
-        applications.add(new Application("Dwight Schrute", "HBO", Branch.IT, LocalDateTime.now()));
+        applications.add(new Application("Dwight Schrute", "MBO", Branch.SALES, LocalDateTime.now()));
+        applications.add(new Application("Stephen A Smith", "HBO", Branch.PR, LocalDateTime.now()));
         sleeper(3000);
         applications.add(new Application("Michael Schmid", "MASTER", Branch.FINANCE, LocalDateTime.now()));
+        applications.add(new Application("Trey Lance", "MBO", Branch.FINANCE, LocalDateTime.now()));
         sleeper(2000);
         applications.add(new Application("Rick Grimes", "HBO", Branch.HR, LocalDateTime.now()));
         applications.add(new Application("Jim Harper", "MASTER", Branch.SALES, LocalDateTime.now()));
         sleeper(1500);
         applications.add(new Application("John Smith", "MBO", Branch.IT, LocalDateTime.now()));
+        applications.add(new Application("Mike Jones", "HBO", Branch.HR, LocalDateTime.now()));
     }
 }

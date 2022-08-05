@@ -13,6 +13,7 @@ import org.example.service.WorkflowService;
 import org.example.util.enums.Branch;
 
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Menus {
@@ -39,33 +40,33 @@ public class Menus {
 
 
     public void startMenu() {
-//        System.out.println("\n" +
-//                "          _____                    _____                    _____          \n" +
-//                "         /\\    \\                  /\\    \\                  /\\    \\         \n" +
-//                "        /::\\____\\                /::\\    \\                /::\\____\\        \n" +
-//                "       /:::/    /               /::::\\    \\              /::::|   |        \n" +
-//                "      /:::/    /               /::::::\\    \\            /:::::|   |        \n" +
-//                "     /:::/    /               /:::/\\:::\\    \\          /::::::|   |        \n" +
-//                "    /:::/____/               /:::/__\\:::\\    \\        /:::/|::|   |        \n" +
-//                "   /::::\\    \\              /::::\\   \\:::\\    \\      /:::/ |::|   |        \n" +
-//                "  /::::::\\    \\   _____    /::::::\\   \\:::\\    \\    /:::/  |::|___|______  \n" +
-//                " /:::/\\:::\\    \\ /\\    \\  /:::/\\:::\\   \\:::\\____\\  /:::/   |::::::::\\    \\ \n" +
-//                "/:::/  \\:::\\    /::\\____\\/:::/  \\:::\\   \\:::|    |/:::/    |:::::::::\\____\\\n" +
-//                "\\::/    \\:::\\  /:::/    /\\::/   |::::\\  /:::|____|\\::/    / ~~~~~/:::/    /\n" +
-//                " \\/____/ \\:::\\/:::/    /  \\/____|:::::\\/:::/    /  \\/____/      /:::/    / \n" +
-//                "          \\::::::/    /         |:::::::::/    /               /:::/    /  \n" +
-//                "           \\::::/    /          |::|\\::::/    /               /:::/    /   \n" +
-//                "           /:::/    /           |::| \\::/____/               /:::/    /    \n" +
-//                "          /:::/    /            |::|  ~|                    /:::/    /     \n" +
-//                "         /:::/    /             |::|   |                   /:::/    /      \n" +
-//                "        /:::/    /              \\::|   |                  /:::/    /       \n" +
-//                "        \\::/    /                \\:|   |                  \\::/    /        \n" +
-//                "         \\/____/                  \\|___|                   \\/____/         \n" +
-//                "                                                                           \n");
-//
-//        System.out.println("Input your firstname and press enter to continue\n");
-//        String firstname = scanner.nextLine();
-//        System.out.println("Welcome " + firstname + "\n");
+        System.out.println("\n" +
+                "          _____                    _____                    _____          \n" +
+                "         /\\    \\                  /\\    \\                  /\\    \\         \n" +
+                "        /::\\____\\                /::\\    \\                /::\\____\\        \n" +
+                "       /:::/    /               /::::\\    \\              /::::|   |        \n" +
+                "      /:::/    /               /::::::\\    \\            /:::::|   |        \n" +
+                "     /:::/    /               /:::/\\:::\\    \\          /::::::|   |        \n" +
+                "    /:::/____/               /:::/__\\:::\\    \\        /:::/|::|   |        \n" +
+                "   /::::\\    \\              /::::\\   \\:::\\    \\      /:::/ |::|   |        \n" +
+                "  /::::::\\    \\   _____    /::::::\\   \\:::\\    \\    /:::/  |::|___|______  \n" +
+                " /:::/\\:::\\    \\ /\\    \\  /:::/\\:::\\   \\:::\\____\\  /:::/   |::::::::\\    \\ \n" +
+                "/:::/  \\:::\\    /::\\____\\/:::/  \\:::\\   \\:::|    |/:::/    |:::::::::\\____\\\n" +
+                "\\::/    \\:::\\  /:::/    /\\::/   |::::\\  /:::|____|\\::/    / ~~~~~/:::/    /\n" +
+                " \\/____/ \\:::\\/:::/    /  \\/____|:::::\\/:::/    /  \\/____/      /:::/    / \n" +
+                "          \\::::::/    /         |:::::::::/    /               /:::/    /  \n" +
+                "           \\::::/    /          |::|\\::::/    /               /:::/    /   \n" +
+                "           /:::/    /           |::| \\::/____/               /:::/    /    \n" +
+                "          /:::/    /            |::|  ~|                    /:::/    /     \n" +
+                "         /:::/    /             |::|   |                   /:::/    /      \n" +
+                "        /:::/    /              \\::|   |                  /:::/    /       \n" +
+                "        \\::/    /                \\:|   |                  \\::/    /        \n" +
+                "         \\/____/                  \\|___|                   \\/____/         \n" +
+                "                                                                           \n");
+
+        System.out.println("Input your firstname and press enter to continue\n");
+        String firstname = scanner.nextLine();
+        System.out.println("Welcome " + firstname + "\n");
         mainMenu();
     }
 
@@ -123,7 +124,14 @@ public class Menus {
                 System.out.println("Name of employee: ");
                 String employeeName = scanner.nextLine();
                 Employee employee = employeeService.findEmployeeByName(employeeName);
+                while (employee == null){
+                    System.out.println("Employee: "+employeeName+" not found, Try Again?");
+                    System.out.println("Employee name: ");
+                    employeeName = scanner.nextLine();
+                    employee = employeeService.findEmployeeByName(employeeName);
+                }
                 System.out.println(employee);
+
                 employeeMenu();
             case "4":
 //                Add employee
@@ -141,10 +149,7 @@ public class Menus {
 
                 //Add branch
                 newEmployee.setBranch(branchVerification());
-                System.out.println("Score:");
-                byte score = scanner.nextByte();
 
-                newEmployee.setEmployeeScore(score);
 
                 //Add Employee to arrayList
                 employeeService.addEmployee(newEmployee);
@@ -359,16 +364,17 @@ public class Menus {
         System.out.println(Arrays.toString(Branch.values()));
         System.out.println("Type in the branch");
         String vacatureBranch = scanner.nextLine().toUpperCase().strip();
-        Branch openBranch = null;
-        try{
-            openBranch = Branch.valueOf(vacatureBranch);
+        boolean isIn = employeeService.branchExist(vacatureBranch);
+        Branch branch;
+         if (isIn) {
+             branch = Branch.valueOf(vacatureBranch);
+         } else {
+             System.out.println("We do not have branch: " +vacatureBranch+ " in our system");
+             System.out.println("Please try again");
+             branch = branchVerification();
+         }
 
-        } catch(IllegalArgumentException exc){
-            System.out.println("We do not have branch: " +vacatureBranch+ " in our system");
-            System.out.println("Please try again");
-            branchVerification();
-        }
-
-        return openBranch;
+        return branch;
     }
+
 }

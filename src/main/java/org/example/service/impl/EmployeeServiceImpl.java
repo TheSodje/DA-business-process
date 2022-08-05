@@ -6,6 +6,7 @@ import org.example.service.EmployeeService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class EmployeeServiceImpl implements EmployeeService {
 
@@ -32,7 +33,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public boolean branchExist(String branch) {
-        return employeeRepository.getBranch(branch);
+        return employeeRepository.branchExist(branch);
     }
 
     @Override
