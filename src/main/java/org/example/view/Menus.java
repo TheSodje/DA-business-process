@@ -355,28 +355,20 @@ public class Menus {
 
 //    -----------------------------------Helper Methods ---------------------------------------------//
 
-    public Branch branchVerification() {
+    public Branch branchVerification(){
         System.out.println(Arrays.toString(Branch.values()));
         System.out.println("Type in the branch");
         String vacatureBranch = scanner.nextLine().toUpperCase().strip();
-        Branch openBranch = findBranch(vacatureBranch);
-        if (openBranch == null) {
-            System.out.println("We do not have branch: " + vacatureBranch + " in our system");
+        Branch openBranch = null;
+        try{
+            openBranch = Branch.valueOf(vacatureBranch);
+
+        } catch(IllegalArgumentException exc){
+            System.out.println("We do not have branch: " +vacatureBranch+ " in our system");
             System.out.println("Please try again");
             branchVerification();
         }
 
         return openBranch;
     }
-
-    public Branch findBranch(String branchNewEmpl) {
-        Branch branchNew = null;
-        if (employeeService.branchExist(branchNewEmpl)) {
-            branchNew = Branch.valueOf(branchNewEmpl);
-            return branchNew;
-        }
-
-        return branchNew;
-    }
-
 }
