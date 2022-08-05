@@ -21,13 +21,13 @@ public class WorkFlowRepository {
         workflow.addLast(employee);
     }
     public void insertFirst(Employee employee){
-        workflow.addLast(employee);
+        workflow.addFirst(employee);
     }
 
     public void replace(Employee employee1, Employee employee2){
         Employee employeeToBeReplaced = new Employee();
         for (Employee node: workflow){
-            if (node.getFullName().equals(employee1.getFullName())){
+            if (node.getFullName().equalsIgnoreCase(employee1.getFullName())){
                 employeeToBeReplaced = node;
                 break;
             }
@@ -35,6 +35,17 @@ public class WorkFlowRepository {
         int index = workflow.indexOf(employeeToBeReplaced);
         workflow.remove(employeeToBeReplaced);
         workflow.add(index, employee2);
+    }
+
+    public Employee findNode(String employee) {
+        Employee employeeNode = new Employee();
+        for (Employee empl: employees){
+            if (empl.getFullName().equalsIgnoreCase(employee)){
+                employeeNode = empl;
+                break;
+            }
+        }
+        return employeeNode;
     }
 
     public void viewWorkflow() {
@@ -45,11 +56,18 @@ public class WorkFlowRepository {
             step++;
         }
     }
+    public void remove(String name) {
+        Employee nodeToRemove = employeeRepo.findEmployeeByName(name);
+        workflow.remove(nodeToRemove);
+        System.out.println(nodeToRemove);
+
+    }
 
     {
-        workflow.add(employees.get(1));
-        workflow.add(employees.get(2));
         workflow.add(employees.get(3));
+        workflow.add(employees.get(1));
+        workflow.add(employees.get(4));
+        workflow.add(employees.get(2));
     }
 
 }

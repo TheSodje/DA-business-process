@@ -1,7 +1,12 @@
 package org.example.view;
 
+import org.example.entity.Application;
 import org.example.entity.Employee;
 import org.example.repositories.menus.*;
+import org.example.repositories.menus.submenus.ApplicationsMenuItemsRepository;
+import org.example.repositories.menus.submenus.EmployeeMenuItemsRepository;
+import org.example.repositories.menus.submenus.Submenus;
+import org.example.repositories.menus.submenus.WorkflowMenuItemsRepository;
 import org.example.service.ApplicationService;
 import org.example.service.EmployeeService;
 import org.example.service.WorkflowService;
@@ -66,8 +71,7 @@ public class Menus {
     // --------------------------Main Menu ---------------------------------//
 
     public void mainMenu() {
-        System.out.println();
-        System.out.println("What would you like to do?\n");
+        System.out.println("What would you like to do?");
 
         menuItemsRepository.getMainMenuItems().forEach(System.out::println);
 
@@ -115,44 +119,34 @@ public class Menus {
                 break;
             case "3":
 //                Search for employee
-                String employee = scanner.nextLine();
-//                method to find employee (in params)
+                System.out.println("Name of employee: ");
+                String employeeName = scanner.nextLine();
+                Employee employee = employeeService.findEmployeeByName(employeeName);
+                System.out.println(employee);
                 employeeMenu();
             case "4":
 //                Add employee
                 Employee newEmployee = new Employee();
 
+                //Insert Id
                 System.out.println("id:");
                 String employeeId = scanner.nextLine();
                 newEmployee.setEmployeeId(employeeId);
 
+                // Insert Name
                 System.out.println("full name:");
                 String fullName = scanner.nextLine();
                 newEmployee.setFullName(fullName);
 
-                System.out.println("Score:");
-                byte score = scanner.nextByte();
+                //Add branch
+                newEmployee.setBranch(branchVerification());
 
-                newEmployee.getEmployeeScore(score);
-
-                System.out.println(Arrays.toString(Branch.values()));
-                System.out.println("Type in the branch");
-
-                scanner.nextLine();
-                String branchNewEmployee = scanner.nextLine();
-                switch (branchNewEmployee.toUpperCase()) {
-                    case "IT":
-                        newEmployee.setBranch(Branch.IT);
-                        break;
-                    case "SALES":
-                        newEmployee.setBranch(Branch.SALES);
-                        break;
-                    case "FINANCE":
-                        newEmployee.setBranch(Branch.FINANCE);
-                        break;
-                }
+                //Add Employee to arrayList
                 employeeService.addEmployee(newEmployee);
-                employeeMenu();
+
+                System.out.println("New Employee added: "+ newEmployee);
+                System.out.println();
+                viewEmployeesMenu();
                 break;
             case "5":
 //                Employee(s) of the month
@@ -179,9 +173,6 @@ public class Menus {
                 break;
             case "2":
 //                    order empl by score (desc)
-                break;
-            case "3":
-                employeeMenu();
                 break;
             default:
                 System.out.println("Invalid number chosen");
@@ -212,6 +203,10 @@ public class Menus {
             case "3":
                 filterApplicationsMenu();
                 break;
+            case "4":
+                addApplicationMenu();
+                applicationsMenu();
+                break;
             default:
                 System.err.println("Invalid item number try again\n");
                 applicationsMenu();
@@ -238,12 +233,35 @@ public class Menus {
                 break;
         }
     }
+    public void addApplicationMenu(){
+        Application application = new Application();
+
+        //Insert Name
+        System.out.println("full name:");
+        String name = scanner.nextLine();
+        application.setName(name);
+
+        //Insert Education
+        System.out.println("education: " + "(MBO[middelbaar] of HBO)");
+        String education = scanner.nextLine().toUpperCase();
+        application.setEducation(education);
+
+        //Set Branch
+        application.setVacature(branchVerification());
+
+        //Add application to Qeue
+        applicationService.addApplication(application);
+
+        System.out.println("New Application inserted: "+ application);
+        System.out.println();
+    }
 
     // --------------------------Workflow Menu ---------------------------------//
 
     public void workflowMenu() {
         System.out.println("Workflow");
         workflowService.viewWorkFlow();
+        System.out.println();
         workflowMenuItemsRepository.getWorkflowMenuItems().forEach(System.out::println);
 
         String choice = scanner.nextLine();
@@ -255,7 +273,7 @@ public class Menus {
                 editWorkflow();
             default:
                 System.err.println("Invalid item number try again\n");
-                applicationsMenu();
+                workflowMenu();
                 break;
         }
     }
@@ -270,21 +288,87 @@ public class Menus {
                 break;
             case "1":
 //                addFirst method
+                System.out.println("Name of employee: ");
+                String employeeName = scanner.nextLine();
+                Employee employeeFirst = employeeService.findEmployeeByName(employeeName);
+                workflowService.insertFirst(employeeFirst);
+                workflowMenu();
                 break;
             case "2":
 //                 addLast Method
+                System.out.println("Name of employee: ");
+                String employeeName1 = scanner.nextLine();
+                Employee employeeLast = employeeService.findEmployeeByName(employeeName1);
+                workflowService.insertLast(employeeLast);
+                workflowMenu();
                 break;
             case "3":
 //                 add Method
+                System.out.println("Name of employee: ");
+                String employeeNameToAdd = scanner.nextLine();
+                Employee newEmployeeNode = employeeService.findEmployeeByName(employeeNameToAdd);
+                System.out.println(newEmployeeNode);
+
+                System.out.println("Place before employee: ");
+                String employeeNameAfterNode = scanner.nextLine();
+                Employee nodeAfter = workflowService.findNodeByName(employeeNameAfterNode);
+
+                int position = workflowService.getWorkflow().indexOf(nodeAfter) ;
+                workflowService.getWorkflow().add(position, newEmployeeNode);
+
+                workflowMenu();
                 break;
             case "4":
 //                 replace empl method
+                System.out.println("Name of employee to add: ");
+                String newNodeName = scanner.nextLine();
+                Employee newEmplNode = employeeService.findEmployeeByName(newNodeName);
+
+                System.out.println("Name of employee to be replaced: ");
+                String replaceNodeName = scanner.nextLine();
+                Employee replaceEmplNode = workflowService.findNodeByName(replaceNodeName);
+
+                workflowService.replace(replaceEmplNode, newEmplNode);
+
+                workflowMenu();
                 break;
+            case "5":
+//                 remove method
+                System.out.println("Name of employee to remove: ");
+                String nameToRemove = scanner.nextLine();
+                workflowService.remove(nameToRemove);
+                workflowMenu();
             default:
                 System.err.println("Invalid item number try again\n");
                 editWorkflow();
                 break;
         }
+    }
+
+//    -----------------------------------Helper Methods ---------------------------------------------//
+
+    public Branch branchVerification(){
+        System.out.println(Arrays.toString(Branch.values()));
+        System.out.println("Type in the branch");
+        String vacatureBranch = scanner.nextLine().toUpperCase().strip();
+        Branch openBranch = findBranch(vacatureBranch);
+        if (openBranch == null){
+            System.out.println("We do not have branch: " +vacatureBranch+ " in our system");
+            System.out.println("Please try again");
+            branchVerification();
+        }
+
+        return openBranch;
+    }
+
+    public Branch findBranch(String branchNewEmpl){
+        Branch branchNew = null;
+        if (employeeService.branchExist(branchNewEmpl)) {
+            branchNew = Branch.valueOf(branchNewEmpl);
+            return branchNew;
+        }
+
+        return branchNew;
     }
 
 }

@@ -1,4 +1,4 @@
-package org.example.repositories.menus;
+package org.example.repositories.menus.submenus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +39,7 @@ public class Submenus {
         editWorkflowMenuItems.add("2. To add a node at the end");
         editWorkflowMenuItems.add("3. To add a node at a certain point");
         editWorkflowMenuItems.add("4. To replace an employee");
+        editWorkflowMenuItems.add("5. To remove an employee");
         editWorkflowMenuItems.add("0. Return Workflow");
     }
 
