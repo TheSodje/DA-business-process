@@ -14,7 +14,6 @@ import org.example.util.enums.Branch;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Optional;
 import java.util.Scanner;
 
 public class Menus {
@@ -125,8 +124,8 @@ public class Menus {
                 System.out.println("Name of employee: ");
                 String employeeName = scanner.nextLine();
                 Employee employee = employeeService.findEmployeeByName(employeeName);
-                while (employee == null){
-                    System.out.println("Employee: "+employeeName+" not found, Try Again?");
+                while (employee == null) {
+                    System.out.println("Employee: " + employeeName + " not found, Try Again?");
                     System.out.println("Employee name: ");
                     employeeName = scanner.nextLine();
                     employee = employeeService.findEmployeeByName(employeeName);
@@ -165,7 +164,9 @@ public class Menus {
                 break;
             case "5":
 //                Employee(s) of the month
-//                Method to return array with employees with highest score.
+                System.out.println("The employee(s) of the month are: \n");
+                employeeService.getEmployeesWithHighestScore().forEach(System.out::println);
+                employeeMenu();
                 break;
             default:
                 System.err.println("Invalid item number try again\n");
@@ -190,6 +191,8 @@ public class Menus {
                 break;
             case "2":
 //                    order empl by score (desc)
+                employeeService.getAllEmployeesSortByHighestScore().forEach(System.out::println);
+                employeeMenu();
                 break;
             default:
                 System.out.println("Invalid number chosen");
@@ -365,29 +368,29 @@ public class Menus {
 
 //    -----------------------------------Helper Methods ---------------------------------------------//
 
-    public Branch branchVerification(){
+    public Branch branchVerification() {
         System.out.println(Arrays.toString(Branch.values()));
         System.out.println("Type in the branch");
         String vacatureBranch = scanner.nextLine().toUpperCase().strip();
         Branch branch;
-         if (branchExist(vacatureBranch)) {
-             branch = Branch.valueOf(vacatureBranch);
-         } else {
-             System.out.println("We do not have branch: " +vacatureBranch+ " in our system");
-             System.out.println("Please try again");
-             branch = branchVerification();
-         }
+        if (branchExist(vacatureBranch)) {
+            branch = Branch.valueOf(vacatureBranch);
+        } else {
+            System.out.println("We do not have branch: " + vacatureBranch + " in our system");
+            System.out.println("Please try again");
+            branch = branchVerification();
+        }
 
         return branch;
     }
 
-    public boolean branchExist(String branchString){
+    public boolean branchExist(String branchString) {
         boolean exist = false;
         ArrayList<String> branchList = new ArrayList<>();
         Arrays.stream(Branch.values()).forEach(brnch -> branchList.add(brnch.toString()));
 
-        for (String branch: branchList) {
-            if(branch.equalsIgnoreCase(branchString)){
+        for (String branch : branchList) {
+            if (branch.equalsIgnoreCase(branchString)) {
                 exist = true;
                 break;
             }

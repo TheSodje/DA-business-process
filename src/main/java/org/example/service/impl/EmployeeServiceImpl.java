@@ -31,10 +31,34 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public List<Employee> getEmployeesWithHighestScore() {
+        List<Employee> sortedByHighestScore = getAllEmployeesSortByHighestScore();
+        List<Employee> employeesWithHighestScore = new ArrayList<>();
+
+        for (int i = 0; i <= sortedByHighestScore.size() - 1; i++) {
+            if (sortedByHighestScore.get(i).getEmployeeScore() >=
+                    sortedByHighestScore.get(0).getEmployeeScore()) {
+                employeesWithHighestScore.add(sortedByHighestScore.get(i));
+            }
+        }
+        return employeesWithHighestScore;
+    }
+
+    @Override
     public List<Employee> getAllEmployeesSortByLowestScore() {
         List<Employee> sortedEmployees = divideArrayElements(0, getAllEmployees().size() - 1);
         employeeRepository.setEmployees(sortedEmployees);
         return getAllEmployees();
+    }
+
+    @Override
+    public List<Employee> getAllEmployeesSortByHighestScore() {
+        List<Employee> sortedByLowestScoreEmployees = getAllEmployeesSortByLowestScore();
+        List<Employee> sortedByHighestScoreEmployees = new ArrayList<>();
+        for (int i = sortedByLowestScoreEmployees.size() - 1; i >= 0; i--) {
+            sortedByHighestScoreEmployees.add(sortedByLowestScoreEmployees.get(i));
+        }
+        return sortedByHighestScoreEmployees;
     }
 
     /*
@@ -68,12 +92,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
                 tempArray.add(getAllEmployees().get(getLeftIndex));
                 getLeftIndex++;
-
             } else {
-
                 tempArray.add(getAllEmployees().get(getRightIndex));
                 getRightIndex++;
-
             }
         }
 

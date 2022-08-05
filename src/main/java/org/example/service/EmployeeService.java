@@ -11,9 +11,11 @@ public interface EmployeeService {
 
     boolean addEmployee(Employee employee);
 
+    List<Employee> getEmployeesWithHighestScore();
+
     List<Employee> getAllEmployeesSortByLowestScore();
 
     Employee findEmployeeByName(String name);
 
-
+    List<Employee> getAllEmployeesSortByHighestScore();
 }
