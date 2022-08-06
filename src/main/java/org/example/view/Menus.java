@@ -187,13 +187,11 @@ public class Menus {
             case "1":
 //                  order empl by score (ascending)
                 employeeService.getAllEmployeesSortByLowestScore(employeeService.getAllEmployees()).forEach(System.out::println);
-                employeeService.getAllEmployeesSortByLowestScore();
                 employeeMenu();
                 break;
             case "2":
 //                    order empl by score (desc)
                 employeeService.getAllEmployeesSortByHighestScore(employeeService.getAllEmployees()).forEach(System.out::println);
-                employeeService.getAllEmployeesSortByHighestScore();
                 employeeMenu();
                 break;
             default:

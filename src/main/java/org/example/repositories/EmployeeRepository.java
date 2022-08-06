@@ -22,9 +22,9 @@ public class EmployeeRepository {
     }
 
     public Employee findEmployeeByName(String name) {
-        Employee employee= null;
-        for (Employee empl: employees){
-            if (empl.getFullName().equalsIgnoreCase(name)){
+        Employee employee = null;
+        for (Employee empl : employees) {
+            if (empl.getFullName().equalsIgnoreCase(name)) {
                 employee = empl;
                 break;
             }
@@ -32,102 +32,16 @@ public class EmployeeRepository {
         return employee;
     }
 
-    public void sortEmployeesBySingleBranch(String branch){
+    public void sortEmployeesBySingleBranch(String branch) {
         ArrayList<Employee> employeesList = new ArrayList<>();
-        for (Employee employee: employees){
-            if (employee.getBranch() == Branch.valueOf(branch)){
+        for (Employee employee : employees) {
+            if (employee.getBranch() == Branch.valueOf(branch)) {
                 employeesList.add(employee);
             }
         }
-        System.out.println(branch+" branch: ");
+        System.out.println(branch + " branch: ");
         employeesList.forEach(System.out::println);
     }
-
-        public List<Employee> getEmployeesWithHighestScore() {
-        List<Employee> sortedByHighestScore = employeesrtByHighestScore();
-        List<Employee> employeesWithHighestScore = new ArrayList<>();
-
-        for (int i = 0; i <= sortedByHighestScore.size() - 1; i++) {
-            if (sortedByHighestScore.get(i).getEmployeeScore() >=
-                    sortedByHighestScore.get(0).getEmployeeScore()) {
-                employeesWithHighestScore.add(sortedByHighestScore.get(i));
-            }
-        }
-        return employeesWithHighestScore;
-    }
-
-
-    public List<Employee> employeesortByLowestScore() {
-        employees = divideArrayElements(0, employees.size() - 1);
-        return employees;
-    }
-
-
-    public List<Employee> employeesrtByHighestScore() {
-        List<Employee> sortedByLowestScoreEmployees = employeesortByLowestScore();
-        List<Employee> sortedByHighestScoreEmployees = new ArrayList<>();
-        for (int i = sortedByLowestScoreEmployees.size() - 1; i >= 0; i--) {
-            sortedByHighestScoreEmployees.add(sortedByLowestScoreEmployees.get(i));
-        }
-        return sortedByHighestScoreEmployees;
-    }
-
-    /*
-     * Sorting algorithm used is merged sort
-     * why? merge sort is viable for all sizes of datasets compared to other basic sorting algorithms
-     * how? merge sort uses divide and conquer principle by breaking up the data, sorting and merging
-     *      together
-     * */
-
-    private List<Employee> divideArrayElements(int startIndex, int endIndex) {
-        if (startIndex < endIndex && (endIndex - startIndex) >= 1) {
-            int middleElement = (endIndex + startIndex) / 2;
-
-            divideArrayElements(startIndex, middleElement);
-            divideArrayElements(middleElement + 1, endIndex);
-
-            return mergeArrayElements(startIndex, middleElement, endIndex);
-        } else return employees;
-    }
-
-    private List<Employee> mergeArrayElements(int indexStart, int indexMiddle, int indexEnd) {
-        List<Employee> tempArray = new ArrayList<>();
-
-        int getLeftIndex = indexStart;
-        int getRightIndex = indexMiddle + 1;
-
-        while (getLeftIndex <= indexMiddle && getRightIndex <= indexEnd) {
-
-            if (employees.get(getLeftIndex).getEmployeeScore() <=
-                    employees.get(getRightIndex).getEmployeeScore()) {
-
-                tempArray.add(employees.get(getLeftIndex));
-                getLeftIndex++;
-            } else {
-                tempArray.add(employees.get(getRightIndex));
-                getRightIndex++;
-            }
-        }
-
-        while (getLeftIndex <= indexMiddle) {
-            tempArray.add(employees.get(getLeftIndex));
-            getLeftIndex++;
-        }
-
-        while (getRightIndex <= indexEnd) {
-            tempArray.add(employees.get(getRightIndex));
-            getRightIndex++;
-        }
-
-
-        for (int i = 0; i < tempArray.size(); indexStart++) {
-            employees.set(indexStart, tempArray.get(i++));
-        }
-
-        return tempArray;
-
-    }
-
 
     {
         employees.add(new Employee("1", Branch.IT, (byte) 5, "John Wick"));

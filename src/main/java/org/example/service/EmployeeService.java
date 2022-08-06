@@ -20,7 +20,5 @@ public interface EmployeeService {
 
     Employee findEmployeeByName(String name);
 
-    List<Employee> getAllEmployeesSortByHighestScore();
-
     void sortEmployeesBySingleBranch(String branch);
 }
