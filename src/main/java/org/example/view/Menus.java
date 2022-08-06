@@ -165,7 +165,7 @@ public class Menus {
             case "5":
 //                Employee(s) of the month
                 System.out.println("The employee(s) of the month are: \n");
-                employeeService.getEmployeesWithHighestScore().forEach(System.out::println);
+                employeeService.getEmployeesWithHighestScore(employeeService.getAllEmployees()).forEach(System.out::println);
                 employeeMenu();
                 break;
             default:
@@ -186,12 +186,12 @@ public class Menus {
                 break;
             case "1":
 //                  order empl by score (ascending)
-                employeeService.getAllEmployeesSortByLowestScore().forEach(System.out::println);
+                employeeService.getAllEmployeesSortByLowestScore(employeeService.getAllEmployees()).forEach(System.out::println);
                 employeeMenu();
                 break;
             case "2":
 //                    order empl by score (desc)
-                employeeService.getAllEmployeesSortByHighestScore().forEach(System.out::println);
+                employeeService.getAllEmployeesSortByHighestScore(employeeService.getAllEmployees()).forEach(System.out::println);
                 employeeMenu();
                 break;
             default:

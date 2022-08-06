@@ -31,8 +31,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<Employee> getEmployeesWithHighestScore() {
-        List<Employee> sortedByHighestScore = getAllEmployeesSortByHighestScore();
+    public List<Employee> getEmployeesWithHighestScore(List<Employee> employees) {
+        List<Employee> sortedByHighestScore = getAllEmployeesSortByHighestScore(employees);
         List<Employee> employeesWithHighestScore = new ArrayList<>();
 
         for (int i = 0; i <= sortedByHighestScore.size() - 1; i++) {
@@ -45,15 +45,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<Employee> getAllEmployeesSortByLowestScore() {
-        List<Employee> sortedEmployees = divideArrayElements(0, getAllEmployees().size() - 1);
+    public List<Employee> getAllEmployeesSortByLowestScore(List<Employee> employees) {
+        List<Employee> sortedEmployees = divideArrayElements(0, employees.size() - 1, employees);
         employeeRepository.setEmployees(sortedEmployees);
-        return getAllEmployees();
+        return employees;
     }
 
     @Override
-    public List<Employee> getAllEmployeesSortByHighestScore() {
-        List<Employee> sortedByLowestScoreEmployees = getAllEmployeesSortByLowestScore();
+    public List<Employee> getAllEmployeesSortByHighestScore(List<Employee> employees) {
+        List<Employee> sortedByLowestScoreEmployees = getAllEmployeesSortByLowestScore(employees);
         List<Employee> sortedByHighestScoreEmployees = new ArrayList<>();
         for (int i = sortedByLowestScoreEmployees.size() - 1; i >= 0; i--) {
             sortedByHighestScoreEmployees.add(sortedByLowestScoreEmployees.get(i));
@@ -68,18 +68,18 @@ public class EmployeeServiceImpl implements EmployeeService {
      *      together
      * */
 
-    private List<Employee> divideArrayElements(int startIndex, int endIndex) {
+    private List<Employee> divideArrayElements(int startIndex, int endIndex, List<Employee> employees) {
         if (startIndex < endIndex && (endIndex - startIndex) >= 1) {
             int middleElement = (endIndex + startIndex) / 2;
 
-            divideArrayElements(startIndex, middleElement);
-            divideArrayElements(middleElement + 1, endIndex);
+            divideArrayElements(startIndex, middleElement, employees);
+            divideArrayElements(middleElement + 1, endIndex, employees);
 
-            return mergeArrayElements(startIndex, middleElement, endIndex);
-        } else return getAllEmployees();
+            return mergeArrayElements(startIndex, middleElement, endIndex, employees);
+        } else return employees;
     }
 
-    private List<Employee> mergeArrayElements(int indexStart, int indexMiddle, int indexEnd) {
+    private List<Employee> mergeArrayElements(int indexStart, int indexMiddle, int indexEnd, List<Employee> employees) {
         List<Employee> tempArray = new ArrayList<>();
 
         int getLeftIndex = indexStart;
@@ -87,30 +87,30 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         while (getLeftIndex <= indexMiddle && getRightIndex <= indexEnd) {
 
-            if (getAllEmployees().get(getLeftIndex).getEmployeeScore() <=
-                    getAllEmployees().get(getRightIndex).getEmployeeScore()) {
+            if (employees.get(getLeftIndex).getEmployeeScore() <=
+                    employees.get(getRightIndex).getEmployeeScore()) {
 
-                tempArray.add(getAllEmployees().get(getLeftIndex));
+                tempArray.add(employees.get(getLeftIndex));
                 getLeftIndex++;
             } else {
-                tempArray.add(getAllEmployees().get(getRightIndex));
+                tempArray.add(employees.get(getRightIndex));
                 getRightIndex++;
             }
         }
 
         while (getLeftIndex <= indexMiddle) {
-            tempArray.add(getAllEmployees().get(getLeftIndex));
+            tempArray.add(employees.get(getLeftIndex));
             getLeftIndex++;
         }
 
         while (getRightIndex <= indexEnd) {
-            tempArray.add(getAllEmployees().get(getRightIndex));
+            tempArray.add(employees.get(getRightIndex));
             getRightIndex++;
         }
 
 
         for (int i = 0; i < tempArray.size(); indexStart++) {
-            getAllEmployees().set(indexStart, tempArray.get(i++));
+            employees.set(indexStart, tempArray.get(i++));
         }
 
         return tempArray;
