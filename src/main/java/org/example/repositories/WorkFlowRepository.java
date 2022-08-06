@@ -39,7 +39,7 @@ public class WorkFlowRepository {
 
     public Employee findNode(String employee) {
         Employee employeeNode = new Employee();
-        for (Employee empl: employees){
+        for (Employee empl: workflow){
             if (empl.getFullName().equalsIgnoreCase(employee)){
                 employeeNode = empl;
                 break;
@@ -56,10 +56,9 @@ public class WorkFlowRepository {
             step++;
         }
     }
-    public void remove(String name) {
-        Employee nodeToRemove = employeeRepo.findEmployeeByName(name);
-        workflow.remove(nodeToRemove);
-        System.out.println(nodeToRemove);
+    public void remove(Employee employee) {
+        workflow.remove(employee);
+        System.out.println(employee);
 
     }
 
