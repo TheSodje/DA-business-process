@@ -19,32 +19,24 @@ import java.util.Scanner;
 public class Menus {
 
     private final Scanner scanner;
+    private final MenuItemsRepository menuItemsRepository;
     private final EmployeeService employeeService;
     private final ApplicationService applicationService;
     private final WorkflowService workflowService;
 
-
-    private final MenuItemsRepository menuItemsRepository;
-    private final EmployeeMenuItemsRepository employeeMenuItemsRepository;
-    private final ApplicationsMenuItemsRepository applicationsMenuItemsRepository;
-    private final WorkflowMenuItemsRepository workflowMenuItemsRepository;
-    private final Submenus submenus;
-
-    public Menus(Scanner scanner, EmployeeService employeeService, ApplicationService applicationService, WorkflowService workflowService,
-                 MenuItemsRepository menuItemsRepository,
-                 EmployeeMenuItemsRepository employeeMenuItemsRepository, ApplicationsMenuItemsRepository applicationsMenuItemsRepository,
-                 WorkflowMenuItemsRepository workflowMenuItemsRepository, Submenus submenus) {
+    public Menus(Scanner scanner, MenuItemsRepository menuItemsRepository,
+                 EmployeeService employeeService, ApplicationService applicationService, WorkflowService workflowService) {
         this.scanner = scanner;
         this.menuItemsRepository = menuItemsRepository;
         this.employeeService = employeeService;
         this.applicationService = applicationService;
         this.workflowService = workflowService;
-        this.employeeMenuItemsRepository = employeeMenuItemsRepository;
-        this.applicationsMenuItemsRepository = applicationsMenuItemsRepository;
-        this.workflowMenuItemsRepository = workflowMenuItemsRepository;
-        this.submenus = submenus;
     }
 
+    private final EmployeeMenuItemsRepository employeeMenuItemsRepository = new EmployeeMenuItemsRepository();
+    private final ApplicationsMenuItemsRepository applicationsMenuItemsRepository = new ApplicationsMenuItemsRepository();
+    private final WorkflowMenuItemsRepository workflowMenuItemsRepository = new WorkflowMenuItemsRepository();
+    private final Submenus submenus = new Submenus();
 
 
     public void startMenu() {
@@ -122,22 +114,22 @@ public class Menus {
                 viewEmployeesMenu();
                 break;
             case "2":
-//              Order employees by branch
                 System.out.println("Which branch do you want to see");
-                String branch = scanner.nextLine().toUpperCase().strip();
-                if (branchExist(branch)){
-                    employeeService.sortEmployeesBySingleBranch(branch);
-                } else{
-                    System.out.println("We do not have branch: " + branch + " in our system");
-                }
+                String branch = scanner.nextLine();
+//                method to order by branch in params
                 employeeMenu();
                 break;
             case "3":
 //                Search for employee
                 System.out.println("Name of employee: ");
                 String employeeName = scanner.nextLine();
-                Employee employee = retryIfEmployeeIsNull(employeeService.findEmployeeByName(employeeName));
-
+                Employee employee = employeeService.findEmployeeByName(employeeName);
+                while (employee == null) {
+                    System.out.println("Employee: " + employeeName + " not found, Try Again?");
+                    System.out.println("Employee name: ");
+                    employeeName = scanner.nextLine();
+                    employee = employeeService.findEmployeeByName(employeeName);
+                }
                 System.out.println(employee);
 
                 employeeMenu();
@@ -173,7 +165,7 @@ public class Menus {
             case "5":
 //                Employee(s) of the month
                 System.out.println("The employee(s) of the month are: \n");
-                employeeService.getEmployeesWithHighestScore().forEach(System.out::println);
+                employeeService.getEmployeesWithHighestScore(employeeService.getAllEmployees()).forEach(System.out::println);
                 employeeMenu();
                 break;
             default:
@@ -194,13 +186,13 @@ public class Menus {
                 break;
             case "1":
 //                  order empl by score (ascending)
-                employeeService.getAllEmployeesSortByLowestScore();
-                viewEmployeesMenu();
+                employeeService.getAllEmployeesSortByLowestScore(employeeService.getAllEmployees()).forEach(System.out::println);
+                employeeMenu();
                 break;
             case "2":
 //                    order empl by score (desc)
-                employeeService.getAllEmployeesSortByHighestScore();
-                viewEmployeesMenu();
+                employeeService.getAllEmployeesSortByHighestScore(employeeService.getAllEmployees()).forEach(System.out::println);
+                employeeMenu();
                 break;
             default:
                 System.out.println("Invalid number chosen");
@@ -224,16 +216,8 @@ public class Menus {
                 applicationsMenu();
                 break;
             case "2":
+                String branch = scanner.nextLine();
 //                method to order application by branch in params
-                System.out.println("Which branch do you want to see");
-                String branch = scanner.nextLine().toUpperCase().strip();
-                if (branchExist(branch)){
-                    System.out.println(branch+" branch: ");
-                    applicationService.sortApplicationBySingleBranch(branch)
-                            .forEach(System.out::println);
-                } else{
-                    System.out.println("We do not have branch: " + branch + " in our system");
-                }
                 applicationsMenu();
                 break;
             case "3":
@@ -327,7 +311,7 @@ public class Menus {
 //                addFirst method
                 System.out.println("Name of employee: ");
                 String employeeName = scanner.nextLine();
-                Employee employeeFirst = retryIfEmployeeIsNull(employeeService.findEmployeeByName(employeeName));
+                Employee employeeFirst = employeeService.findEmployeeByName(employeeName);
                 workflowService.insertFirst(employeeFirst);
                 workflowMenu();
                 break;
@@ -335,7 +319,7 @@ public class Menus {
 //                 addLast Method
                 System.out.println("Name of employee: ");
                 String employeeName1 = scanner.nextLine();
-                Employee employeeLast = retryIfEmployeeIsNull(employeeService.findEmployeeByName(employeeName1));
+                Employee employeeLast = employeeService.findEmployeeByName(employeeName1);
                 workflowService.insertLast(employeeLast);
                 workflowMenu();
                 break;
@@ -343,12 +327,12 @@ public class Menus {
 //                 add Method
                 System.out.println("Name of employee: ");
                 String employeeNameToAdd = scanner.nextLine();
-                Employee newEmployeeNode = retryIfEmployeeIsNull(employeeService.findEmployeeByName(employeeNameToAdd));
+                Employee newEmployeeNode = employeeService.findEmployeeByName(employeeNameToAdd);
                 System.out.println(newEmployeeNode);
 
                 System.out.println("Place before employee: ");
                 String employeeNameAfterNode = scanner.nextLine();
-                Employee nodeAfter = retryIfNodeIsNull(workflowService.findNodeByName(employeeNameAfterNode));
+                Employee nodeAfter = workflowService.findNodeByName(employeeNameAfterNode);
 
                 int position = workflowService.getWorkflow().indexOf(nodeAfter);
                 workflowService.getWorkflow().add(position, newEmployeeNode);
@@ -356,25 +340,24 @@ public class Menus {
                 workflowMenu();
                 break;
             case "4":
-//                 replace Node method
+//                 replace empl method
                 System.out.println("Name of employee to add: ");
                 String newNodeName = scanner.nextLine();
-                Employee newEmplNode = retryIfEmployeeIsNull(employeeService.findEmployeeByName(newNodeName));
+                Employee newEmplNode = employeeService.findEmployeeByName(newNodeName);
 
                 System.out.println("Name of employee to be replaced: ");
                 String replaceNodeName = scanner.nextLine();
-                Employee replaceEmplNode = retryIfNodeIsNull(workflowService.findNodeByName(replaceNodeName));
+                Employee replaceEmplNode = workflowService.findNodeByName(replaceNodeName);
 
                 workflowService.replace(replaceEmplNode, newEmplNode);
 
                 workflowMenu();
                 break;
             case "5":
-//                 remove Node method
+//                 remove method
                 System.out.println("Name of employee to remove: ");
                 String nameToRemove = scanner.nextLine();
-                Employee employeeToRemove = retryIfNodeIsNull(workflowService.findNodeByName(nameToRemove));
-                workflowService.remove(employeeToRemove);
+                workflowService.remove(nameToRemove);
                 workflowMenu();
             default:
                 System.err.println("Invalid item number try again\n");
@@ -414,25 +397,6 @@ public class Menus {
         }
         return exist;
 
-    }
-    public Employee retryIfEmployeeIsNull(Employee employee) {
-        while (employee == null) {
-            System.out.println("Employee  not found, Try Again?");
-            System.out.println("Employee name: ");
-            String employeeName = scanner.nextLine();
-            employee = employeeService.findEmployeeByName(employeeName);
-        }
-        return employee;
-    }
-
-    public Employee retryIfNodeIsNull(Employee employee) {
-        while (workflowService.getWorkflow().contains(employee)) {
-            System.out.println("Node not found, Try Again?");
-            System.out.println("Employee name: ");
-            String employeeName = scanner.nextLine();
-            employee = workflowService.findNodeByName(employeeName);
-        }
-        return employee;
     }
 
 }
