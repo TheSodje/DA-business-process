@@ -1,6 +1,7 @@
 package org.example.service;
 
 import org.example.entity.Employee;
+import org.example.util.enums.Branch;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,4 +19,8 @@ public interface EmployeeService {
     List<Employee> getEmployeesWithHighestScore(List<Employee> employees);
 
     Employee findEmployeeByName(String name);
+
+    List<Employee> getAllEmployeesSortByHighestScore();
+
+    void sortEmployeesBySingleBranch(String branch);
 }

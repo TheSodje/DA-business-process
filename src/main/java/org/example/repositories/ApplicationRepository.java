@@ -4,10 +4,7 @@ import org.example.entity.Application;
 import org.example.util.enums.Branch;
 
 import java.time.LocalDateTime;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class ApplicationRepository {
 
@@ -37,7 +34,9 @@ public class ApplicationRepository {
                 if (result < 0) {
                     compareResult = 1;
                 }
-
+                if (result == 0 && (o1.getSubmissionTime().isBefore(o2.getSubmissionTime()))){
+                    compareResult  = -1;
+                }
             }
             return compareResult;
         }
@@ -58,23 +57,25 @@ public class ApplicationRepository {
         return applications.poll();
     }
 
-    private static void sleeper(long milisec) {
-        try {
-            Thread.sleep(milisec);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    public void sortApplicationBySingleBranch(String branch){
+        ArrayList<Application> applicationsList = new ArrayList<>();
+        for (Application application: applications){
+            if (application.getVacature() == Branch.valueOf(branch)){
+                applicationsList.add(application);
+            }
         }
+        System.out.println(branch+" branch: ");
+        applicationsList.forEach(System.out::println);
     }
 
-
     {
-        applications.add(new Application("Dwight Schrute", "MBO", Branch.SALES, LocalDateTime.now().plusHours(2)));
         applications.add(new Application("Stephen A Smith", "HBO", Branch.PR, LocalDateTime.now().minusHours(5)));
-        applications.add(new Application("Michael Schmid", "MBO", Branch.FINANCE, LocalDateTime.now().minusDays(4)));
         applications.add(new Application("Trey Lance", "HBO", Branch.FINANCE, LocalDateTime.now().minusDays(10)));
-        applications.add(new Application("Rick Grimes", "MBO", Branch.HR, LocalDateTime.now().plusHours(3)));
+        applications.add(new Application("Michael Schmid", "MBO", Branch.FINANCE, LocalDateTime.now().minusDays(4)));
+        applications.add(new Application("Mike Lowry", "HBO", Branch.HR, LocalDateTime.now().minusWeeks(1)));
+        applications.add(new Application("John Jones", "MBO", Branch.IT, LocalDateTime.now().minusDays(6)));
         applications.add(new Application("Jim Harper", "HBO", Branch.SALES, LocalDateTime.now().minusHours(8)));
-        applications.add(new Application("John Smith", "MBO", Branch.IT, LocalDateTime.now().minusDays(6)));
-        applications.add(new Application("Mike Jones", "HBO", Branch.HR, LocalDateTime.now().minusWeeks(1)));
+        applications.add(new Application("Dwight Schrute", "MBO", Branch.SALES, LocalDateTime.now().plusHours(2)));
+        applications.add(new Application("Rick Grimes", "MBO", Branch.HR, LocalDateTime.now().plusHours(3)));
     }
 }

@@ -14,5 +14,5 @@ public interface WorkflowService {
 
     Employee findNodeByName(String name);
 
-    void remove(String name);
+    void remove(Employee employee);
 }

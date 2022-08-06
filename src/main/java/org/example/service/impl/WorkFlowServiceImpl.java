@@ -45,7 +45,7 @@ public class WorkFlowServiceImpl implements WorkflowService {
     }
 
     @Override
-    public void remove(String name) {
-        workFlowRepo.remove(name);
+    public void remove(Employee employee) {
+        workFlowRepo.remove(employee);
     }
 }
