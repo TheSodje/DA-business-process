@@ -32,6 +32,17 @@ public class EmployeeRepository {
         return employee;
     }
 
+    public void sortEmployeesBySingleBranch(String branch){
+        ArrayList<Employee> employeesList = new ArrayList<>();
+        for (Employee employee: employees){
+            if (employee.getBranch() == Branch.valueOf(branch)){
+                employeesList.add(employee);
+            }
+        }
+        System.out.println(branch+" branch: ");
+        employeesList.forEach(System.out::println);
+    }
+
         public List<Employee> getEmployeesWithHighestScore() {
         List<Employee> sortedByHighestScore = employeesrtByHighestScore();
         List<Employee> employeesWithHighestScore = new ArrayList<>();

@@ -4,10 +4,7 @@ import org.example.entity.Application;
 import org.example.util.enums.Branch;
 
 import java.time.LocalDateTime;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class ApplicationRepository {
 
@@ -58,6 +55,17 @@ public class ApplicationRepository {
 
     public Application next() {
         return applications.poll();
+    }
+
+    public void sortApplicationBySingleBranch(String branch){
+        ArrayList<Application> applicationsList = new ArrayList<>();
+        for (Application application: applications){
+            if (application.getVacature() == Branch.valueOf(branch)){
+                applicationsList.add(application);
+            }
+        }
+        System.out.println(branch+" branch: ");
+        applicationsList.forEach(System.out::println);
     }
 
     {

@@ -114,9 +114,14 @@ public class Menus {
                 viewEmployeesMenu();
                 break;
             case "2":
+//              Order employees by branch
                 System.out.println("Which branch do you want to see");
-                String branch = scanner.nextLine();
-//                method to order by branch in params
+                String branch = scanner.nextLine().toUpperCase().strip();
+                if (branchExist(branch)){
+                    employeeService.sortEmployeesBySingleBranch(branch);
+                } else{
+                    System.out.println("We do not have branch: " + branch + " in our system");
+                }
                 employeeMenu();
                 break;
             case "3":
@@ -211,8 +216,14 @@ public class Menus {
                 applicationsMenu();
                 break;
             case "2":
-                String branch = scanner.nextLine();
 //                method to order application by branch in params
+                System.out.println("Which branch do you want to see");
+                String branch = scanner.nextLine().toUpperCase().strip();
+                if (branchExist(branch)){
+                    applicationService.sortApplicationBySingleBranch(branch);
+                } else{
+                    System.out.println("We do not have branch: " + branch + " in our system");
+                }
                 applicationsMenu();
                 break;
             case "3":
