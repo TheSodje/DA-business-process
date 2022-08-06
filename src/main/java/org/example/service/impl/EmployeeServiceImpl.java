@@ -3,6 +3,7 @@ package org.example.service.impl;
 import org.example.entity.Employee;
 import org.example.repositories.EmployeeRepository;
 import org.example.service.EmployeeService;
+import org.example.util.enums.Branch;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +60,11 @@ public class EmployeeServiceImpl implements EmployeeService {
             sortedByHighestScoreEmployees.add(sortedByLowestScoreEmployees.get(i));
         }
         return sortedByHighestScoreEmployees;
+    }
+
+    @Override
+    public void sortEmployeesBySingleBranch(String branch) {
+        employeeRepository.sortEmployeesBySingleBranch(branch);
     }
 
     /*
