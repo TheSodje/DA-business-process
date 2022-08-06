@@ -57,15 +57,14 @@ public class ApplicationRepository {
         return applications.poll();
     }
 
-    public void sortApplicationBySingleBranch(String branch){
+    public ArrayList<Application> sortApplicationBySingleBranch(String branch){
         ArrayList<Application> applicationsList = new ArrayList<>();
         for (Application application: applications){
             if (application.getVacature() == Branch.valueOf(branch)){
                 applicationsList.add(application);
             }
         }
-        System.out.println(branch+" branch: ");
-        applicationsList.forEach(System.out::println);
+        return applicationsList;
     }
 
     {

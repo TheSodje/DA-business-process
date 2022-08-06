@@ -228,7 +228,9 @@ public class Menus {
                 System.out.println("Which branch do you want to see");
                 String branch = scanner.nextLine().toUpperCase().strip();
                 if (branchExist(branch)){
-                    applicationService.sortApplicationBySingleBranch(branch);
+                    System.out.println(branch+" branch: ");
+                    applicationService.sortApplicationBySingleBranch(branch)
+                            .forEach(System.out::println);
                 } else{
                     System.out.println("We do not have branch: " + branch + " in our system");
                 }
