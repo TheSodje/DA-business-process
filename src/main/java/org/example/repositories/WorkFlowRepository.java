@@ -24,17 +24,17 @@ public class WorkFlowRepository {
         workflow.addFirst(employee);
     }
 
-    public void replace(Employee employee1, Employee employee2){
+    public void replace(Employee emplToBeReplaced, Employee insertedEmployee){
         Employee employeeToBeReplaced = new Employee();
         for (Employee node: workflow){
-            if (node.getFullName().equalsIgnoreCase(employee1.getFullName())){
+            if (node.getFullName().equalsIgnoreCase(emplToBeReplaced.getFullName())){
                 employeeToBeReplaced = node;
                 break;
             }
         }
         int index = workflow.indexOf(employeeToBeReplaced);
         workflow.remove(employeeToBeReplaced);
-        workflow.add(index, employee2);
+        workflow.add(index, insertedEmployee);
     }
 
     public Employee findNode(String employee) {

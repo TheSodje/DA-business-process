@@ -126,11 +126,11 @@ public class Menus {
                 System.out.println("Which branch do you want to see");
                 String branch = scanner.nextLine().toUpperCase().strip();
                 if (branchExist(branch)){
-                    employeeService.sortEmployeesBySingleBranch(branch);
+                    employeeService.sortEmployeesBySingleBranch(branch)
+                            .forEach(System.out::println);
                 } else{
                     System.out.println("We do not have branch: " + branch + " in our system");
                 }
-                employeeMenu();
                 break;
             case "3":
 //                Search for employee
