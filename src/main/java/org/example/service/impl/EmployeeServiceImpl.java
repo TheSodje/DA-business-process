@@ -64,7 +64,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void sortEmployeesBySingleBranch(String branch) {
+    public ArrayList<Employee> sortEmployeesBySingleBranch(String branch) {
         ArrayList<Employee> employeesList = new ArrayList<>();
         for (Employee employee : employeeRepository.getEmployees()) {
             if (employee.getBranch() == Branch.valueOf(branch)) {
@@ -73,6 +73,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         System.out.println(branch + " branch: ");
         employeesList.forEach(System.out::println);
+        return employeesList;
     }
 
     /*
