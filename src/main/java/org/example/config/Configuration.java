@@ -26,9 +26,15 @@ public class Configuration {
     private final WorkFlowRepository workFlowRepository = new WorkFlowRepository();
 
     private final MenuItemsRepository menuItemsRepository = new MenuItemsRepository();
+    private final EmployeeMenuItemsRepository employeeMenuItemsRepository = new EmployeeMenuItemsRepository();
+    private final ApplicationsMenuItemsRepository applicationsMenuItemsRepository = new ApplicationsMenuItemsRepository();
+    private final WorkflowMenuItemsRepository workflowMenuItemsRepository = new WorkflowMenuItemsRepository();
+    private final Submenus submenus = new Submenus();
 
     public Menus menu() {
-        return new Menus(scanner, menuItemsRepository, employeeService(), applicationService(), workflowService());
+        return new Menus(scanner, employeeService(), applicationService(), workflowService(),
+                menuItemsRepository, employeeMenuItemsRepository, applicationsMenuItemsRepository,
+                workflowMenuItemsRepository, submenus);
     }
 
     public EmployeeService employeeService() {
