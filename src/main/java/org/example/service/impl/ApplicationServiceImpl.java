@@ -3,9 +3,10 @@ package org.example.service.impl;
 import org.example.entity.Application;
 import org.example.repositories.ApplicationRepository;
 import org.example.service.ApplicationService;
+import org.example.util.enums.Branch;
 
 import java.util.ArrayList;
-import java.util.Queue;
+import java.util.PriorityQueue;
 
 public class ApplicationServiceImpl implements ApplicationService {
 
@@ -16,7 +17,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public Queue<Application> getApplications() {
+    public PriorityQueue<Application> getApplications() {
         return applicationRepo.getApplications();
     }
 
@@ -31,7 +32,13 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public ArrayList<Application> sortApplicationBySingleBranch(String branch) {
-        return applicationRepo.sortApplicationBySingleBranch(branch);
+    public ArrayList<Application> sortApplicationBySingleBranch(String branch){
+        ArrayList<Application> applicationsList = new ArrayList<>();
+        for (Application application: applicationRepo.getApplications()){
+            if (application.getVacature() == Branch.valueOf(branch)){
+                applicationsList.add(application);
+            }
+        }
+        return applicationsList;
     }
 }

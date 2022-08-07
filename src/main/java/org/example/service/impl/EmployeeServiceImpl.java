@@ -59,6 +59,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         for (int i = sortedByLowestScoreEmployees.size() - 1; i >= 0; i--) {
             sortedByHighestScoreEmployees.add(sortedByLowestScoreEmployees.get(i));
         }
+        employeeRepository.setEmployees(sortedByHighestScoreEmployees);
         return sortedByHighestScoreEmployees;
     }
 
