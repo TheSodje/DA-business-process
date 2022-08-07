@@ -3,6 +3,7 @@ package org.example.service;
 import org.example.entity.Employee;
 import org.example.util.enums.Branch;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,5 +21,5 @@ public interface EmployeeService {
 
     Employee findEmployeeByName(String name);
 
-    void sortEmployeesBySingleBranch(String branch);
+    ArrayList<Employee> sortEmployeesBySingleBranch(String branch);
 }

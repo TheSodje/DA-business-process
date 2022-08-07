@@ -64,9 +64,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void sortEmployeesBySingleBranch(String branch) {
-        employeeRepository.sortEmployeesBySingleBranch(branch);
+    public ArrayList <Employee> sortEmployeesBySingleBranch(String branch) { return employeeRepository.sortEmployeesBySingleBranch(branch);
     }
+
 
     /*
      * Sorting algorithm used is merged sort
@@ -74,6 +74,8 @@ public class EmployeeServiceImpl implements EmployeeService {
      * how? merge sort uses divide and conquer principle by breaking up the data, sorting and merging
      *      together
      * */
+
+
 
     private List<Employee> divideArrayElements(int startIndex, int endIndex, List<Employee> employees) {
         if (startIndex < endIndex && (endIndex - startIndex) >= 1) {
