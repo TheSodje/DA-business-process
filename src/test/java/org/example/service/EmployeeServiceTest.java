@@ -1,6 +1,5 @@
 package org.example.service;
 
-import org.example.entity.Application;
 import org.example.entity.Employee;
 import org.example.repositories.EmployeeRepository;
 import org.example.service.impl.EmployeeServiceImpl;
@@ -11,14 +10,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.PriorityQueue;
 
 public class EmployeeServiceTest {
 
     List<Employee> testEmployeeList = new ArrayList<>();
 
     private final EmployeeService employeeService;
-
 
     public EmployeeServiceTest() {
         testEmployeeList.add(new Employee("1", Branch.IT, (byte) 1, "John Wick"));
@@ -69,11 +66,10 @@ public class EmployeeServiceTest {
     @Test
     @DisplayName("Find Employee By name")
     void shouldFindEmployeeByName() {
-        int index = 4;
 
         //Given
+        int index = 4;
         String employeeName = employeeService.getAllEmployees().get(index).getFullName();
-        employeeService.findEmployeeByName(employeeName);
 
         //When
         Employee employeefound = employeeService.findEmployeeByName(employeeName);
