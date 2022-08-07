@@ -53,4 +53,14 @@ public class EmployeeServiceTest {
         }
         Assertions.assertEquals(employeeForIT,employeeCounter);
     }
+
+    @Test
+    void getAllEmployeesSortByLowestScore(){
+        List<Employee> sortedEmployeesByLowest = employeeService.getAllEmployeesSortByLowestScore(testEmployeeList);
+        boolean result = sortedEmployeesByLowest.get(0).getEmployeeScore() <= sortedEmployeesByLowest.get(1).getEmployeeScore();
+
+        Assertions.assertTrue(result);
+
+
+    }
 }
