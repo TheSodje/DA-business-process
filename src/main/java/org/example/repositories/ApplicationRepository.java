@@ -57,16 +57,6 @@ public class ApplicationRepository {
         return applications.poll();
     }
 
-    public ArrayList<Application> sortApplicationBySingleBranch(String branch){
-        ArrayList<Application> applicationsList = new ArrayList<>();
-        for (Application application: applications){
-            if (application.getVacature() == Branch.valueOf(branch)){
-                applicationsList.add(application);
-            }
-        }
-        return applicationsList;
-    }
-
     {
         applications.add(new Application("Stephen A Smith", "HBO", Branch.PR, LocalDateTime.now().minusHours(5)));
         applications.add(new Application("Trey Lance", "HBO", Branch.FINANCE, LocalDateTime.now().minusDays(10)));

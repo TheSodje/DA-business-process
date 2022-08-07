@@ -186,13 +186,13 @@ public class Menus {
                 break;
             case "1":
 //                  order empl by score (ascending)
-                employeeService.getAllEmployeesSortByLowestScore(employeeService.getAllEmployees()).forEach(System.out::println);
-                employeeMenu();
+                employeeService.getAllEmployeesSortByLowestScore(employeeService.getAllEmployees());
+                viewEmployeesMenu();
                 break;
             case "2":
 //                    order empl by score (desc)
-                employeeService.getAllEmployeesSortByHighestScore(employeeService.getAllEmployees()).forEach(System.out::println);
-                employeeMenu();
+                employeeService.getAllEmployeesSortByHighestScore(employeeService.getAllEmployees());
+                viewEmployeesMenu();
                 break;
             default:
                 System.out.println("Invalid number chosen");

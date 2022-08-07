@@ -1,14 +1,13 @@
 package org.example.service;
 
 import org.example.entity.Application;
-import org.example.util.enums.Branch;
 
 import java.util.ArrayList;
-import java.util.Queue;
+import java.util.PriorityQueue;
 
 public interface ApplicationService {
 
-    Queue<Application> getApplications();
+    PriorityQueue<Application> getApplications();
 
     boolean addApplication(Application application);
 
