@@ -65,7 +65,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void sortEmployeesBySingleBranch(String branch) {
-        employeeRepository.sortEmployeesBySingleBranch(branch);
+        ArrayList<Employee> employeesList = new ArrayList<>();
+        for (Employee employee : employeeRepository.getEmployees()) {
+            if (employee.getBranch() == Branch.valueOf(branch)) {
+                employeesList.add(employee);
+            }
+        }
+        System.out.println(branch + " branch: ");
+        employeesList.forEach(System.out::println);
     }
 
     /*

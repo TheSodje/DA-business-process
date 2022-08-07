@@ -32,17 +32,6 @@ public class EmployeeRepository {
         return employee;
     }
 
-    public void sortEmployeesBySingleBranch(String branch) {
-        ArrayList<Employee> employeesList = new ArrayList<>();
-        for (Employee employee : employees) {
-            if (employee.getBranch() == Branch.valueOf(branch)) {
-                employeesList.add(employee);
-            }
-        }
-        System.out.println(branch + " branch: ");
-        employeesList.forEach(System.out::println);
-    }
-
     {
         employees.add(new Employee("1", Branch.IT, (byte) 5, "John Wick"));
         employees.add(new Employee("2", Branch.FINANCE, (byte) 9, "Peter Doe"));

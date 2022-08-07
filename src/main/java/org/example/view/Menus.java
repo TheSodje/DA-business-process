@@ -116,6 +116,7 @@ public class Menus {
             case "2":
                 System.out.println("Which branch do you want to see");
                 String branch = scanner.nextLine();
+                employeeService.sortEmployeesBySingleBranch(branch);
 //                method to order by branch in params
                 employeeMenu();
                 break;
