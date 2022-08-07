@@ -1,5 +1,6 @@
 package org.example.service;
 
+import org.example.entity.Application;
 import org.example.entity.Employee;
 import org.example.repositories.EmployeeRepository;
 import org.example.service.impl.EmployeeServiceImpl;
@@ -10,12 +11,13 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PriorityQueue;
 
 public class EmployeeServiceTest {
 
     List<Employee> testEmployeeList = new ArrayList<>();
 
-    private EmployeeService employeeService;
+    private final EmployeeService employeeService;
 
     public EmployeeServiceTest() {
         testEmployeeList.add(new Employee("1", Branch.IT, (byte) 1, "John Wick"));
@@ -27,12 +29,28 @@ public class EmployeeServiceTest {
         employeeService = new EmployeeServiceImpl(employeeRepository);
     }
 
+
     @Test
     @DisplayName("Top in list has higher or equal score than the next entree")
-    public void employeeListHighestScoreAtTop() {
+    void employeeListHighestScoreAtTop() {
         List<Employee> sortedEmployeesByHighest = employeeService.getAllEmployeesSortByHighestScore(testEmployeeList);
         boolean result = sortedEmployeesByHighest.get(0).getEmployeeScore() >= sortedEmployeesByHighest.get(1).getEmployeeScore();
 
         Assertions.assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Sort By Branch")
+    void sortEmployeeBySingleBranch() {
+        List<Employee> employeesList = employeeService.getAllEmployees();
+        String branch = "IT";
+        int employeeForIT = employeeService.sortEmployeesBySingleBranch(branch).size();
+        int employeeCounter = 0;
+        for (Employee employee : employeeService.getAllEmployees()) {
+            if (employee.getBranch() == Branch.valueOf(branch)) {
+                employeeCounter++;
+            }
+        }
+        Assertions.assertEquals(employeeForIT,employeeCounter);
     }
 }
