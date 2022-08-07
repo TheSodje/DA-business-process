@@ -19,6 +19,7 @@ public class EmployeeServiceTest {
 
     private final EmployeeService employeeService;
 
+
     public EmployeeServiceTest() {
         testEmployeeList.add(new Employee("1", Branch.IT, (byte) 1, "John Wick"));
         testEmployeeList.add(new Employee("2", Branch.FINANCE, (byte) 3, "Peter Parker"));
@@ -27,6 +28,7 @@ public class EmployeeServiceTest {
 
         EmployeeRepository employeeRepository = new EmployeeRepository();
         employeeService = new EmployeeServiceImpl(employeeRepository);
+
     }
 
 
@@ -51,16 +53,33 @@ public class EmployeeServiceTest {
                 employeeCounter++;
             }
         }
-        Assertions.assertEquals(employeeForIT,employeeCounter);
+        Assertions.assertEquals(employeeForIT, employeeCounter);
     }
 
     @Test
-    void getAllEmployeesSortByLowestScore(){
+    void getAllEmployeesSortByLowestScore() {
         List<Employee> sortedEmployeesByLowest = employeeService.getAllEmployeesSortByLowestScore(testEmployeeList);
         boolean result = sortedEmployeesByLowest.get(0).getEmployeeScore() <= sortedEmployeesByLowest.get(1).getEmployeeScore();
 
         Assertions.assertTrue(result);
 
 
+    }
+
+    @Test
+    @DisplayName("Find Employee By name")
+    void shouldFindEmployeeByName() {
+        int index = 4;
+
+        //Given
+        String employeeName = employeeService.getAllEmployees().get(index).getFullName();
+        employeeService.findEmployeeByName(employeeName);
+
+        //When
+        Employee employeefound = employeeService.findEmployeeByName(employeeName);
+        int indexFound = employeeService.getAllEmployees().indexOf(employeefound);
+
+        //Then
+        Assertions.assertEquals(index, indexFound);
     }
 }

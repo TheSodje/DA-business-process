@@ -131,6 +131,7 @@ public class Menus {
                 } else{
                     System.out.println("We do not have branch: " + branch + " in our system");
                 }
+                employeeMenu();
                 break;
             case "3":
 //                Search for employee
