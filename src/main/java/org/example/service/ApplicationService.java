@@ -3,6 +3,7 @@ package org.example.service;
 import org.example.entity.Application;
 import org.example.util.enums.Branch;
 
+import java.util.ArrayList;
 import java.util.Queue;
 
 public interface ApplicationService {
@@ -13,5 +14,5 @@ public interface ApplicationService {
 
     Application next();
 
-    void sortApplicationBySingleBranch(String branch);
+    ArrayList<Application> sortApplicationBySingleBranch(String branch);
 }

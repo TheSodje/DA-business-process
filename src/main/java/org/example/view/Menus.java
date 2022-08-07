@@ -19,24 +19,32 @@ import java.util.Scanner;
 public class Menus {
 
     private final Scanner scanner;
-    private final MenuItemsRepository menuItemsRepository;
     private final EmployeeService employeeService;
     private final ApplicationService applicationService;
     private final WorkflowService workflowService;
 
-    public Menus(Scanner scanner, MenuItemsRepository menuItemsRepository,
-                 EmployeeService employeeService, ApplicationService applicationService, WorkflowService workflowService) {
+
+    private final MenuItemsRepository menuItemsRepository;
+    private final EmployeeMenuItemsRepository employeeMenuItemsRepository;
+    private final ApplicationsMenuItemsRepository applicationsMenuItemsRepository;
+    private final WorkflowMenuItemsRepository workflowMenuItemsRepository;
+    private final Submenus submenus;
+
+    public Menus(Scanner scanner, EmployeeService employeeService, ApplicationService applicationService, WorkflowService workflowService,
+                 MenuItemsRepository menuItemsRepository,
+                 EmployeeMenuItemsRepository employeeMenuItemsRepository, ApplicationsMenuItemsRepository applicationsMenuItemsRepository,
+                 WorkflowMenuItemsRepository workflowMenuItemsRepository, Submenus submenus) {
         this.scanner = scanner;
         this.menuItemsRepository = menuItemsRepository;
         this.employeeService = employeeService;
         this.applicationService = applicationService;
         this.workflowService = workflowService;
+        this.employeeMenuItemsRepository = employeeMenuItemsRepository;
+        this.applicationsMenuItemsRepository = applicationsMenuItemsRepository;
+        this.workflowMenuItemsRepository = workflowMenuItemsRepository;
+        this.submenus = submenus;
     }
 
-    private final EmployeeMenuItemsRepository employeeMenuItemsRepository = new EmployeeMenuItemsRepository();
-    private final ApplicationsMenuItemsRepository applicationsMenuItemsRepository = new ApplicationsMenuItemsRepository();
-    private final WorkflowMenuItemsRepository workflowMenuItemsRepository = new WorkflowMenuItemsRepository();
-    private final Submenus submenus = new Submenus();
 
 
     public void startMenu() {
@@ -220,7 +228,9 @@ public class Menus {
                 System.out.println("Which branch do you want to see");
                 String branch = scanner.nextLine().toUpperCase().strip();
                 if (branchExist(branch)){
-                    applicationService.sortApplicationBySingleBranch(branch);
+                    System.out.println(branch+" branch: ");
+                    applicationService.sortApplicationBySingleBranch(branch)
+                            .forEach(System.out::println);
                 } else{
                     System.out.println("We do not have branch: " + branch + " in our system");
                 }
