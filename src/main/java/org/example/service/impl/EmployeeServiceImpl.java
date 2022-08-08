@@ -32,6 +32,19 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public ArrayList<Employee> sortEmployeesBySingleBranch(String branch) {
+        ArrayList<Employee> employeesList = new ArrayList<>();
+        for (Employee employee : employeeRepository.getEmployees()) {
+            if (employee.getBranch() == Branch.valueOf(branch)) {
+                employeesList.add(employee);
+            }
+        }
+        System.out.println(branch + " branch: ");
+        employeesList.forEach(System.out::println);
+        return employeesList;
+    }
+
+    @Override
     public List<Employee> getEmployeesWithHighestScore(List<Employee> employees) {
         List<Employee> sortedByHighestScore = getAllEmployeesSortByHighestScore(employees);
         List<Employee> employeesWithHighestScore = new ArrayList<>();
@@ -45,6 +58,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeesWithHighestScore;
     }
 
+    //---------------------- Sorting Algorithm --------------------------//
     @Override
     public List<Employee> getAllEmployeesSortByLowestScore(List<Employee> employees) {
         List<Employee> sortedEmployees = divideArrayElements(0, employees.size() - 1, employees);
@@ -61,19 +75,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         employeeRepository.setEmployees(sortedByHighestScoreEmployees);
         return sortedByHighestScoreEmployees;
-    }
-
-    @Override
-    public ArrayList<Employee> sortEmployeesBySingleBranch(String branch) {
-        ArrayList<Employee> employeesList = new ArrayList<>();
-        for (Employee employee : employeeRepository.getEmployees()) {
-            if (employee.getBranch() == Branch.valueOf(branch)) {
-                employeesList.add(employee);
-            }
-        }
-        System.out.println(branch + " branch: ");
-        employeesList.forEach(System.out::println);
-        return employeesList;
     }
 
     /*
@@ -130,5 +131,45 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         return tempArray;
 
+    }
+
+    //---------------------- Search Algorithm --------------------------//
+    @Override
+    public Employee searchEmployeeByScore(byte key) {
+        List<Employee> employees = employeeRepository.getEmployees();
+        List<Employee> sortedByLowestScoreEmployees = getAllEmployeesSortByLowestScore(employees);
+        return findByKey(0, sortedByLowestScoreEmployees.size() - 1, sortedByLowestScoreEmployees, key);
+    }
+
+    /*
+     * Searching algorithm used is Binary search
+     * why? Binary search runs in O(log n), so it's more efficient than linear search as the input grows.
+     * how? The input (data) has to be sorted first, which is done with the sorting algorithm above (merge sort (O(log n))),
+     * then it takes the middle point of the sorted input, where if the search value is either greater or less than the middle point,
+     * it cuts the input size in half by discarding everything to the left(if greater) or right(if less) of it.
+     * */
+
+    public Employee findByKey (int startIndex, int endIndex, List<Employee> employees, byte key) {
+        Employee employee = null;
+
+        while (startIndex <= endIndex) {
+            int middleIndex = (startIndex + endIndex) / 2;
+            byte middleEmployeeScore = employees.get(middleIndex).getEmployeeScore();
+            if (middleEmployeeScore == key) {
+                employee = employees.get(middleIndex);
+                break;
+            } else if (startIndex == endIndex){
+                System.out.println("No Employee Found with score: "+ key);
+                break;
+            }
+            else if (middleEmployeeScore < key) {
+                startIndex = middleIndex + 1;
+
+            } else {
+                endIndex = middleIndex - 1;
+            }
+        }
+
+        return employee;
     }
 }

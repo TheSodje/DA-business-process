@@ -172,6 +172,12 @@ public class Menus {
                 viewEmployeesMenu();
                 break;
             case "5":
+                //Search for employee with score
+                System.out.println("What is the employee score you're looking for?:");
+                byte scoreSearch = Byte.parseByte(scanner.nextLine());
+                System.out.println(employeeService.searchEmployeeByScore(scoreSearch));
+                employeeMenu();
+            case "6":
 //                Employee(s) of the month
                 System.out.println("The employee(s) of the month are: \n");
                 employeeService.getEmployeesWithHighestScore(employeeService.getAllEmployees()).forEach(System.out::println);

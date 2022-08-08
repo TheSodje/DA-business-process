@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.LinkedList;
-
 
 class WorkflowServiceTest {
 
@@ -27,18 +25,6 @@ class WorkflowServiceTest {
         nameNewEmployee = "Deebo Samuel";
         newEmployee = new Employee("14", Branch.FINANCE, (byte)7, nameNewEmployee);
         employeeRepository.addEmployee(newEmployee);
-
-    }
-
-    @Test
-    @DisplayName("Retrieve workflow from Workflow Repo")
-    void shouldGetWorkflowFromWorkflowRepo() {
-        //Given
-        LinkedList<Employee> workflowRepoList = workFlowRepository.getWorkflow();
-        //When
-        LinkedList<Employee> workflowServiceList = workflowService.getWorkflow();
-        //Then
-        Assertions.assertEquals(workflowServiceList, workflowRepoList);
 
     }
 

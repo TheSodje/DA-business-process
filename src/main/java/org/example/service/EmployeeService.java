@@ -22,4 +22,6 @@ public interface EmployeeService {
     Employee findEmployeeByName(String name);
 
     ArrayList<Employee> sortEmployeesBySingleBranch(String branch);
+
+    Employee searchEmployeeByScore(byte score);
 }

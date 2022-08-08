@@ -28,39 +28,77 @@ public class EmployeeServiceTest {
 
     }
 
-
-    @Test
-    @DisplayName("Top in list has higher or equal score than the next entree")
-    void employeeListHighestScoreAtTop() {
-        List<Employee> sortedEmployeesByHighest = employeeService.getAllEmployeesSortByHighestScore(testEmployeeList);
-        boolean result = sortedEmployeesByHighest.get(0).getEmployeeScore() >= sortedEmployeesByHighest.get(1).getEmployeeScore();
-
-        Assertions.assertTrue(result);
-    }
-
     @Test
     @DisplayName("Sort By Branch")
     void sortEmployeeBySingleBranch() {
-        List<Employee> employeesList = employeeService.getAllEmployees();
+        //Given
         String branch = "IT";
-        int employeeForIT = employeeService.sortEmployeesBySingleBranch(branch).size();
+        int employeesForIT = employeeService.sortEmployeesBySingleBranch(branch).size();
         int employeeCounter = 0;
+
+        //When
         for (Employee employee : employeeService.getAllEmployees()) {
             if (employee.getBranch() == Branch.valueOf(branch)) {
                 employeeCounter++;
             }
         }
-        Assertions.assertEquals(employeeForIT, employeeCounter);
+
+        //Then
+        Assertions.assertEquals(employeesForIT, employeeCounter);
     }
 
     @Test
+    @DisplayName("Sort Employees By Score (asc)")
     void getAllEmployeesSortByLowestScore() {
+        //Given
         List<Employee> sortedEmployeesByLowest = employeeService.getAllEmployeesSortByLowestScore(testEmployeeList);
+        //When
         boolean result = sortedEmployeesByLowest.get(0).getEmployeeScore() <= sortedEmployeesByLowest.get(1).getEmployeeScore();
-
+        //Then
         Assertions.assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Sort Employees By Score (asc)")
+    void getAllEmployeesSortByLowestScores() {
+        //Given
+        List<Employee> sortedEmployeesByLowest = employeeService.getAllEmployeesSortByLowestScore(testEmployeeList);
+        boolean asc = true;
+        int index = 0;
+
+        //When
+        while(index < (sortedEmployeesByLowest.size() -1)){
+            asc = sortedEmployeesByLowest.get(index).getEmployeeScore() <= sortedEmployeesByLowest.get(index + 1).getEmployeeScore();
+            if (!asc){
+                break;
+            }
+            index++;
+        }
+
+        //Then
+        Assertions.assertTrue(asc);
+    }
 
 
+    @Test
+    @DisplayName("Sort Employees By Score (desc)")
+    void employeeListHighestScoreAtTop() {
+        //Given
+        List<Employee> sortedEmployeesByHighest = employeeService.getAllEmployeesSortByHighestScore(testEmployeeList);
+        boolean asc = true;
+        int index = 0;
+
+        //When
+        while(index < (sortedEmployeesByHighest.size() -1)){
+            asc = sortedEmployeesByHighest.get(index).getEmployeeScore() >= sortedEmployeesByHighest.get(index + 1).getEmployeeScore();
+            if (!asc){
+                break;
+            }
+            index++;
+        }
+
+        //Then
+        Assertions.assertTrue(asc);
     }
 
     @Test
@@ -72,10 +110,25 @@ public class EmployeeServiceTest {
         String employeeName = employeeService.getAllEmployees().get(index).getFullName();
 
         //When
-        Employee employeefound = employeeService.findEmployeeByName(employeeName);
-        int indexFound = employeeService.getAllEmployees().indexOf(employeefound);
+        Employee employeeFound = employeeService.findEmployeeByName(employeeName);
+        int indexFound = employeeService.getAllEmployees().indexOf(employeeFound);
 
         //Then
         Assertions.assertEquals(index, indexFound);
+    }
+
+    @Test
+    @DisplayName("Return first employee with given score")
+    void searchForEmployeeWithCertainScore(){
+        //Given
+        byte score = (byte)5;
+
+        //When
+        Employee employeeWithScore = employeeService.searchEmployeeByScore(score);
+        byte scoreFound = employeeWithScore.getEmployeeScore();
+
+        //Then
+        Assertions.assertEquals(score, scoreFound);
+
     }
 }
