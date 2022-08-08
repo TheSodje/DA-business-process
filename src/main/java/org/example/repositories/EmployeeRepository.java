@@ -7,6 +7,10 @@ import java.util.*;
 
 public class EmployeeRepository {
 
+    /*
+     * Datastructure: ArrayList, for easy index based acces (O)1 and adding. Most important feature is that it can grow itself when needed;
+     * In this case the Arraylist wil be used to constantly acces data, delete date, search for data en sort data.
+     * */
     private List<Employee> employees = new ArrayList<>();
 
     public List<Employee> getEmployees() {

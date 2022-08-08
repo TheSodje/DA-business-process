@@ -17,6 +17,11 @@ public class ApplicationRepository {
             String education1 = o1.getEducation();
             String education2 = o2.getEducation();
 
+        /*
+         * Datastructure: HashMap, because it gives you the ability to pair a key with a certain value;
+         * In this case the type of education of the applicant gets paired with a key which indicates its priority.
+         *
+         */
             Map<String, Integer> map = new HashMap<>();
             map.put("HBO", 2);
             map.put("MBO", 1);
@@ -41,6 +46,11 @@ public class ApplicationRepository {
             return compareResult;
         }
     }
+
+    /*
+    * Datastructure: PriorityQueue, because it gives you the ability to give a higher priority to certain entries;
+    * In this case the higher the education, the higher the priority, so that gets placed as close the head as possible
+    * */
 
     private final PriorityQueue<Application> applications = new PriorityQueue<>(new ApplicationSorter());
 

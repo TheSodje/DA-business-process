@@ -9,6 +9,11 @@ import java.util.ListIterator;
 public class WorkFlowRepository {
 
     private final EmployeeRepository employeeRepo = new EmployeeRepository();
+
+    /*
+     * Datastructure: LinkedList, for easy adding Nodes(employees) in workflow, without having to delete the node first.
+     * It is very dynamic and utilizes memory efficiently.
+     * */
     private final List<Employee> employees = employeeRepo.getEmployees();
 
     private final LinkedList<Employee> workflow = new LinkedList<>();
