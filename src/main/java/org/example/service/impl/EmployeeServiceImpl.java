@@ -39,8 +39,6 @@ public class EmployeeServiceImpl implements EmployeeService {
                 employeesList.add(employee);
             }
         }
-        System.out.println(branch + " branch: ");
-        employeesList.forEach(System.out::println);
         return employeesList;
     }
 

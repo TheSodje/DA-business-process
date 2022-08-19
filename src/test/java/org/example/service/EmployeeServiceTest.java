@@ -85,20 +85,20 @@ public class EmployeeServiceTest {
     void employeeListHighestScoreAtTop() {
         //Given
         List<Employee> sortedEmployeesByHighest = employeeService.getAllEmployeesSortByHighestScore(testEmployeeList);
-        boolean asc = true;
+        boolean desc = true;
         int index = 0;
 
         //When
         while(index < (sortedEmployeesByHighest.size() -1)){
-            asc = sortedEmployeesByHighest.get(index).getEmployeeScore() >= sortedEmployeesByHighest.get(index + 1).getEmployeeScore();
-            if (!asc){
+            desc = sortedEmployeesByHighest.get(index).getEmployeeScore() >= sortedEmployeesByHighest.get(index + 1).getEmployeeScore();
+            if (!desc){
                 break;
             }
             index++;
         }
 
         //Then
-        Assertions.assertTrue(asc);
+        Assertions.assertTrue(desc);
     }
 
     @Test
