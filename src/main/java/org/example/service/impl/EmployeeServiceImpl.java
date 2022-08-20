@@ -133,7 +133,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     //---------------------- Search Algorithm --------------------------//
     @Override
-    public Employee searchEmployeeByScore(byte key) {
+    public ArrayList<Employee> searchEmployeesByScore(byte key) {
         List<Employee> employees = employeeRepository.getEmployees();
         List<Employee> sortedByLowestScoreEmployees = getAllEmployeesSortByLowestScore(employees);
         return findByKey(0, sortedByLowestScoreEmployees.size() - 1, sortedByLowestScoreEmployees, key);
@@ -147,14 +147,18 @@ public class EmployeeServiceImpl implements EmployeeService {
      * it cuts the input size in half by discarding everything to the left(if greater) or right(if less) of it.
      * */
 
-    public Employee findByKey (int startIndex, int endIndex, List<Employee> employees, byte key) {
-        Employee employee = null;
+    public ArrayList<Employee> findByKey (int startIndex, int endIndex, List<Employee> employees, byte key) {
+        ArrayList<Employee> employeesFound = new ArrayList<>();
 
         while (startIndex <= endIndex) {
             int middleIndex = (startIndex + endIndex) / 2;
             byte middleEmployeeScore = employees.get(middleIndex).getEmployeeScore();
             if (middleEmployeeScore == key) {
-                employee = employees.get(middleIndex);
+                employeesFound.add(employees.get(middleIndex));
+                while(middleIndex < endIndex && employees.get(middleIndex+1).getEmployeeScore() == key){
+                        employeesFound.add(employees.get(middleIndex+1));
+                        middleIndex++;
+                }
                 break;
             } else if (startIndex == endIndex){
                 System.out.println("No Employee Found with score: "+ key);
@@ -168,6 +172,6 @@ public class EmployeeServiceImpl implements EmployeeService {
             }
         }
 
-        return employee;
+        return employeesFound;
     }
 }

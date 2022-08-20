@@ -175,7 +175,7 @@ public class Menus {
                 //Search for employee with score
                 System.out.println("What is the employee score you're looking for?:");
                 byte scoreSearch = Byte.parseByte(scanner.nextLine());
-                System.out.println(employeeService.searchEmployeeByScore(scoreSearch));
+                employeeService.searchEmployeesByScore(scoreSearch).forEach(System.out::println);
                 employeeMenu();
             case "6":
 //                Employee(s) of the month

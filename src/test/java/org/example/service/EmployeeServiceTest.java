@@ -118,17 +118,25 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    @DisplayName("Return first employee with given score")
-    void searchForEmployeeWithCertainScore(){
+    @DisplayName("Return list of employees with given score")
+    void searchForEmployeesWithCertainScore(){
         //Given
         byte score = (byte)5;
+        boolean isScore = true;
+        int index = 0;
+
+        ArrayList<Employee> employeesWithScore = employeeService.searchEmployeesByScore(score);
 
         //When
-        Employee employeeWithScore = employeeService.searchEmployeeByScore(score);
-        byte scoreFound = employeeWithScore.getEmployeeScore();
+        while(index < (employeesWithScore.size() -1)){
+            isScore = (score == employeesWithScore.get(index).getEmployeeScore());
+            if (!isScore){
+                break;
+            }
+            index++;
+        }
 
         //Then
-        Assertions.assertEquals(score, scoreFound);
-
+        Assertions.assertTrue(isScore);
     }
 }

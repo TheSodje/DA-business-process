@@ -23,5 +23,5 @@ public interface EmployeeService {
 
     ArrayList<Employee> sortEmployeesBySingleBranch(String branch);
 
-    Employee searchEmployeeByScore(byte score);
+    ArrayList<Employee> searchEmployeesByScore(byte score);
 }
