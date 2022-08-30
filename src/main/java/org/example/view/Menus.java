@@ -433,7 +433,7 @@ public class Menus {
     }
 
     public Employee retryIfNodeIsNull(Employee employee) {
-        while (workflowService.getWorkflow().contains(employee)) {
+        while (!workflowService.getWorkflow().contains(employee)) {
             System.out.println("Node not found, Try Again?");
             System.out.println("Employee name: ");
             String employeeName = scanner.nextLine();
